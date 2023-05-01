@@ -165,7 +165,7 @@ public class App extends Application {
             String name = tournamentName.getText();
             LocalDate start = startDate.getValue();
             LocalDate end = endDate.getValue();
-            tournaments.add(new Tournament(0, null, null, 0, name));
+            tournaments.add(new Tournament(0, null, null, 0, name, teams));
             tournamentList.getChildren().clear();
             for (Tournament t : tournaments) {
                 tournamentList.getChildren().add(new Label("t.getName()"));

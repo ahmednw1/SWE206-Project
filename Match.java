@@ -1,24 +1,32 @@
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Match implements Serializable{
-    private Date date;
-    private ArrayList<Integer> score;
-    //private Sport sport;
-    private ArrayList<Team> teams;
+    private LocalDate date;
     private Tournament tournament;
+    private Team team1;
+    private Team team2;
+    private int team1score;
+    private int team2score;
 
     public Match(Team team1, Team team2){
-        teams.add(team1);
-        teams.add(team2);
+       this.team1 = team1;
+       this.team2 = team2;
     }
 
-    public Date getDate(){
+    public Match(Team team1, Team team2, LocalDate date){
+        this.team1 = team1;
+        this.team2 = team2;
+        this.date = date;
+    }
+
+    public LocalDate getDate(){
         return date;
     }
 
-    public void setdate(Date date){
+    public void setdate(LocalDate date){
         this.date = date;
     }
 
@@ -27,24 +35,62 @@ public class Match implements Serializable{
     }
 
     public ArrayList<Integer> getScore(){
-        return score;
+        ArrayList<Integer> scores = new ArrayList<>();
+        scores.add(team1score);
+        scores.add(team2score);
+        return scores;
     }
 
     public void recordScore(int team1Score, int team2Score){
-        ArrayList<Integer> newScore = new ArrayList<>();
-        newScore.add(team1Score);
-        newScore.add(team2Score);
-        score = newScore;
-        
+        this.team1score = team1Score;
+        this.team2score = team2Score;
+        //if getType = round robin
+        recordPoints();
     }
 
     public void editresult(int team1Score, int team2Score){
-        ArrayList<Integer> newScore = new ArrayList<>();
-        newScore.add(team1Score);
-        newScore.add(team2Score);
-        score = newScore;
+        Team winner1 = getWinner();
+        this.team1score = team1Score;
+        this.team2score = team2Score;
+        Team winner2 = getWinner();
+        //if getType = round robin
+        if(winner1 != winner2){
+            editPoints();
+        }
     }
 
+    public void recordPoints(){
+        if(team1score > team2score){
+            team1.updatePoints(3);
+        }else if(team2score > team1score){
+            team2.updatePoints(3);
+        }else{
+            team1.updatePoints(1);
+            team2.updatePoints(1);
+        }
+    }
+
+    public void editPoints(){
+        if(team1score > team2score){
+            team1.updatePoints(3);
+            team2.updatePoints(-3);
+        }else{
+            team2.updatePoints(3);
+            team1.updatePoints(-3);
+        }
+    }
+
+    public Team getWinner(){
+        if (team1score > team2score){
+            return team1;
+        }else if( team2score > team1score){
+            return team2;
+        }else{
+            return null;
+        }
+    }
+
+   
 
 
 

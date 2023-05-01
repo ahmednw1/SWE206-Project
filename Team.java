@@ -39,4 +39,13 @@ public class Team implements Serializable {
         this.enrolledTournament = tournament;
         tournament.addParticipant(this);
     }
+
+    public void updatePoints(int point){
+        points += point;
+    }
+
+    public void updateScore(int scoreFor, int scoreAgainst){
+        this.scoreFor += scoreFor;
+        this.scoreAgainst += scoreAgainst;
+    }
 }

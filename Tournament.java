@@ -58,7 +58,16 @@ public class Tournament {
 
     public void generateMatches() {
         if(tournamentType.equals("Elimination")) {
-            int numOfRounds = (int) Math.ceil(Math.log(teamNumber + 1) / Math.log(2));
+            elimantion();
+
+        }else {
+            roundRobin();
+        }
+
+    }
+
+    public void elimantion(){
+        int numOfRounds = (int) Math.ceil(Math.log(teamNumber + 1) / Math.log(2));
             int numOfMatches = (int) teamNumber-1;
 //            List<Match> matches = new ArrayList<>();
             LocalDate matchDate = startDate;
@@ -106,24 +115,6 @@ public class Tournament {
 
             }
             return;
-
-        }else {
-            ArrayList<Team> teams = new ArrayList<Team>();
-            for (Team team : this.participants) {
-                teams.add(team);
-            }
-            int numTeams = teams.size();
-            int numOfRounds = numTeams%2==0?numTeams-1:numTeams;
-            Team[][] Purification= new Team[numOfRounds][participants.size()/2];
-
-
-            for (int i=0;i<participants.size();i++){
-                for (int j=i+1;i<participants.size();j++){
-
-                }
-            }
-        }
-
     }
 
     public String getTypes (){
@@ -188,4 +179,57 @@ public class Tournament {
     public void selectTournamentType(String tournamentType) {
         this.tournamentType = tournamentType;
     }
+
+    public void roundRobin() {
+        int numTeams = participants.size();
+        if (numTeams % 2 != 0) {
+            Team byeTeam = new Team("BYE"); // create a bye team if the number of teams is odd
+            participants.add(byeTeam);
+            numTeams++;
+        }
+    
+        List<Team> homeTeams = new ArrayList<>();
+        List<Team> awayTeams = new ArrayList<>();
+    
+        // Generate matches for each round-robin stage
+        for (int stage = 0; stage < numTeams - 1; stage++) {
+            for (int i = 0; i < numTeams / 2; i++) {
+                int j = numTeams - 1 - i;
+                homeTeams.add(participants.get(i));
+                awayTeams.add(participants.get(j));
+            }
+            Collections.rotate(participants.subList(1, participants.size()), 1); // rotate the teams for the next round
+        }
+    
+        // Create matches for each home/away team combination
+        for (int i = 0; i < homeTeams.size(); i++) {
+            Match match = new Match(homeTeams.get(i), awayTeams.get(i));
+            matches.add(match);
+        }
+
+        // int numTeams = participants.size();
+        // if (numTeams % 2 != 0) {
+        //     Team byeTeam = new Team("BYE"); // create a bye team if the number of teams is odd
+        //     participants.add(byeTeam);
+        //     numTeams++;
+        // }
+    
+        // int matchesPerRound = numTeams / 2;
+    
+        // // Generate matches for each round
+        // for (int round = 1; round <= numRounds; round++) {
+        //     int startTeamIndex = (round - 1) % (numTeams - 1);
+        //     for (int i = 0; i < matchesPerRound; i++) {
+        //         int home = (startTeamIndex + i) % (numTeams - 1);
+        //         int away = (numTeams - 2 - i + startTeamIndex) % (numTeams - 1);
+        //         if (i == 0) {
+        //             away = numTeams - 1;
+        //         }
+        //         Match match = new Match(participants.get(home), participants.get(away));
+        //         matches.add(match);
+        //     }
+        // }
+    }
+    
+    
 }

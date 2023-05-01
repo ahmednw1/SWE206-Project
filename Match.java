@@ -90,6 +90,14 @@ public class Match implements Serializable{
         }
     }
 
+    public Team getTeam1(){
+        return team1;
+    }
+
+    public Team getTeam2(){
+        return team2;
+    }
+
    
 
 

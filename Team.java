@@ -5,6 +5,9 @@ public class Team implements Serializable {
     private ArrayList<Student> students;
     private String name;
     private Tournament enrolledTournament;
+    private int points;
+    private int scoreFor;
+    private int scoreAgainst;
 
     public Team(String name) {
         this.name = name;

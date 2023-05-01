@@ -57,7 +57,6 @@ public class Tournament {
     }
 
     public void generateMatches() {
-        // TODO: Implement this method
         if(tournamentType.equals("Elimination")) {
             int numOfRounds = (int) Math.ceil(Math.log(teamNumber + 1) / Math.log(2));
             int numOfMatches = (int) teamNumber-1;

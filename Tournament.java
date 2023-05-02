@@ -57,6 +57,7 @@ public class Tournament {
     }
 
     public void generateMatches() {
+        Collections.shuffle(participants);
         if(tournamentType.equals("Elimination")) {
             elimantion();
 
@@ -77,7 +78,6 @@ public class Tournament {
                 Purification[numOfRounds-1]=new Team[2^i];
             }
 
-            Collections.shuffle(participants);
             int matchesBf= 2*(participants.size()-(2^(numOfRounds-1)));
 
             for(int i=0;i<matchesBf;i=i+2){

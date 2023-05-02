@@ -58,7 +58,7 @@ public class Tournament {
 
     public void generateMatches() {
         if(tournamentType.equals("Elimination")) {
-            elimantion();
+            elimination();
 
         }else {
             roundRobin();
@@ -66,56 +66,49 @@ public class Tournament {
 
     }
 
-    public void elimantion(){
-        int numOfRounds = (int) Math.ceil(Math.log(teamNumber + 1) / Math.log(2));
-            int numOfMatches = (int) teamNumber-1;
-//            List<Match> matches = new ArrayList<>();
-            LocalDate matchDate = startDate;
-            Team[][] Purification= new Team[numOfRounds+1][];
-
-            for(int i=0;i<numOfRounds+1;i++){
-                Purification[numOfRounds-1]=new Team[2^i];
+    public void elimination() {
+        int numOfRounds = (int) Math.ceil(Math.log(participants.size() + 1) / Math.log(2));
+        LocalDate matchDate = startDate;
+        Team[][] purification = new Team[numOfRounds + 1][];
+        
+        for (int i = 0; i < numOfRounds + 1; i++) {
+            purification[i] = new Team[1 << (numOfRounds - i)];
+        }
+        
+        Collections.shuffle(participants);
+        int matchesBeforeElimination = participants.size() - (1 << (numOfRounds - 1));
+        
+        for (int i = 0; i < matchesBeforeElimination; i += 2) {
+            matches.add(new Match(participants.get(i), participants.get(i + 1), matchDate));
+        }
+        
+        if (matchesBeforeElimination > 0) {
+            matchDate = matchDate.plusDays(1 + eachStageDays);
+        }
+        
+        int j = 1, i = 0;
+        for (i = 0; i < matchesBeforeElimination; i++) {
+            purification[j - 1][i] = matches.get(i).getWinner();
+        }
+        
+        i = i * 2;
+        for (i = i; i < participants.size(); i++) {
+            purification[j - 1][i - matchesBeforeElimination] = participants.get(i);
+        }
+        
+        while (j <= numOfRounds) {
+            i = 0;
+            matchDate = matchDate.plusDays(1 + eachStageDays);
+            while (i < purification[j - 1].length) {
+                matches.add(new Match(purification[j - 1][i], purification[j - 1][i + 1], matchDate));
+                i = i + 2;
             }
-
-            Collections.shuffle(participants);
-            int matchesBf= 2*(participants.size()-(2^(numOfRounds-1)));
-
-            for(int i=0;i<matchesBf;i=i+2){
-                matches.add(new Match(participants.get(i),participants.get(i+1),matchDate));
-            }
-
-            if(0<matchesBf){
-                matchDate = matchDate.plusDays (1+eachStageDays);
-            }
-
-            int j=0,i=0;
-            for (i=0;i<matchesBf;i++){
-                Purification[j][i]=matches.get(i).getWinner();
-            }
-            i=i*2;
-            for(i=i;i<participants.size();i++){
-                Purification[j][i-matchesBf]=participants.get(i);
-            }
-
             j++;
-            i=0;
-
-            while (true){
-                while ( i<Purification[j-1].length){
-                    matches.add(new Match(Purification[j-1][i], Purification[j-1][i+1],matchDate));
-                    Purification[j][i/2]=matches.get(matches.size()-1).getWinner();
-                    i=i+2;
-                }
-                if (j <= numOfRounds){
-                    j++;
-                    i=0;
-                    matchDate = matchDate.plusDays (1+eachStageDays);
-                }else
-                    break;
-
-            }
-            return;
+        }
     }
+    
+    
+    
 
     public String getTypes (){
         return tournamentType;
@@ -207,28 +200,6 @@ public class Tournament {
             matches.add(match);
         }
 
-        // int numTeams = participants.size();
-        // if (numTeams % 2 != 0) {
-        //     Team byeTeam = new Team("BYE"); // create a bye team if the number of teams is odd
-        //     participants.add(byeTeam);
-        //     numTeams++;
-        // }
-    
-        // int matchesPerRound = numTeams / 2;
-    
-        // // Generate matches for each round
-        // for (int round = 1; round <= numRounds; round++) {
-        //     int startTeamIndex = (round - 1) % (numTeams - 1);
-        //     for (int i = 0; i < matchesPerRound; i++) {
-        //         int home = (startTeamIndex + i) % (numTeams - 1);
-        //         int away = (numTeams - 2 - i + startTeamIndex) % (numTeams - 1);
-        //         if (i == 0) {
-        //             away = numTeams - 1;
-        //         }
-        //         Match match = new Match(participants.get(home), participants.get(away));
-        //         matches.add(match);
-        //     }
-        // }
     }
     
     

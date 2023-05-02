@@ -90,6 +90,16 @@ public class Match implements Serializable{
         }
     }
 
+    public Team getLoser(){
+        if (team1score > team2score){
+            return team2;
+        }else if( team2score > team1score){
+            return team1;
+        }else{
+            return null;
+        }
+    }
+
     public Team getTeam1(){
         return team1;
     }

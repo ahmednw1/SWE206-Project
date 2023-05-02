@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     // public static void main(String[] args) {
@@ -89,36 +90,62 @@ public class Main {
     //     }
     // }
 
-    public static void main(String[] args) {
-        // Create a sample tournament with 6 teams
-        ArrayList<Team> teams = new ArrayList<>();
-        teams.add(new Team("Team 1"));
-        teams.add(new Team("Team 2"));
-        teams.add(new Team("Team 3"));
-        teams.add(new Team("Team 4"));
-        teams.add(new Team("Team 5"));
+    // public static void main(String[] args) {
+    //     // Create a sample tournament with 6 teams
+    //     ArrayList<Team> teams = new ArrayList<>();
+    //     teams.add(new Team("Team 1"));
+    //     teams.add(new Team("Team 2"));
+    //     teams.add(new Team("Team 3"));
+    //     teams.add(new Team("Team 4"));
+    //     teams.add(new Team("Team 5"));
         
-        Sport sport = new Sport("footable");
-         Tournament tournament = new Tournament(1,LocalDate.of(2023, 6, 1),sport,4, "Round Robin", teams);
+    //     Sport sport = new Sport("footable");
+    //      Tournament tournament = new Tournament(1,LocalDate.of(2023, 6, 1),sport,4, "Elimination", teams);
 
     
-        // Generate the matches and ensure that each team plays only once in each round
-        tournament.roundRobin();
+    //     // Generate the matches and ensure that each team plays only once in each round
+    //     tournament.roundRobin();
     
-        // Display the matches as a table
-        System.out.println("Round\tHome Team\t\tAway Team\t");
-        System.out.println("-------------------------------------------------------");
-        int roundNumber = 1;
-        for (int i = 0; i < tournament.getMatches().size(); i++) {
-            Match match = tournament.getMatches().get(i);
-            System.out.printf("%d\t%s\t\t%s\t\n",
-                roundNumber, match.getTeam1().getName(), match.getTeam2().getName());
-            // Increment round number after each match
-            if ((i + 1) % (tournament.getParticipants().size() / 2) == 0) {
-                roundNumber++;
-            }
-        }
+    //     // Display the matches as a table
+    //     System.out.println("Round\tHome Team\t\tAway Team\t");
+    //     System.out.println("-------------------------------------------------------");
+    //     int roundNumber = 1;
+    //     for (int i = 0; i < tournament.getMatches().size(); i++) {
+    //         Match match = tournament.getMatches().get(i);
+    //         System.out.printf("%d\t%s\t\t%s\t\n",
+    //             roundNumber, match.getTeam1().getName(), match.getTeam2().getName());
+    //         // Increment round number after each match
+    //         if ((i + 1) % (tournament.getParticipants().size() / 2) == 0) {
+    //             roundNumber++;
+    //         }
+    //     }
+    // }
+    public static void main(String[] args) {
+        LocalDate startDate = LocalDate.of(2023, 5, 1);
+        int eachStageDays = 1;
+        ArrayList<Team> participants = new ArrayList<>();
+        participants.add(new Team("Team 1"));
+        participants.add(new Team("Team 2"));
+        participants.add(new Team("Team 3"));
+        participants.add(new Team("Team 4"));
+        participants.add(new Team("Team 5"));
+        participants.add(new Team("Team 6"));
+        participants.add(new Team("Team 7"));
+        participants.add(new Team("Team 8"));
+        Sport sport = new Sport("footable");
+        Tournament tournament = new Tournament(1, LocalDate.of(2023, 6, 1), sport, 4, "Elimination", participants);
+    
+        tournament.elimination();
+    
+       System.out.println(tournament.getMatches());
     }
+    
+    
+
+    
+    
+
+   
     
     
     

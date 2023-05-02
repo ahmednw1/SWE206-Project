@@ -108,7 +108,6 @@ public class Tournament {
     }
     
     
-    
 
     public String getTypes (){
         return tournamentType;

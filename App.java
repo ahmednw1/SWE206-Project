@@ -24,6 +24,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class App extends Application {
+
+    // Data reading  
     Database database = new Database();
     ArrayList<Tournament> tournaments = database.getTournaments();
     ArrayList<Student> students = database.getStudents();
@@ -49,6 +51,18 @@ public class App extends Application {
 
         Group addTournamentGroup = new Group();
         Scene addTournamentScene = new Scene(addTournamentGroup, 400, 275);
+
+        Group profileGroup = new Group();
+        Scene profileScene = new Scene(profileGroup, 400, 275);
+
+        Group matchesGroup = new Group();
+        Scene matchesScene = new Scene(matchesGroup, 400, 275);
+
+        Group addScoreGroup = new Group();
+        Scene addScoreScene = new Scene(addScoreGroup, 400, 275);
+
+        Group selectedTournamnetGroup = new Group();
+        Scene selectedTournamnetScene = new Scene(selectedTournamnetGroup, 400, 275);
 
         // Login page ( Login scene )
         BorderPane borderPane = new BorderPane();
@@ -86,13 +100,8 @@ public class App extends Application {
         loginButton.setOnAction(event -> {
             String username = usernameTextField.getText();
             String password = passwordField.getText();
-
-            if (username.equals("admin") && password.equals("p")) {
-                loginStatus.setText("Login successful!");
-                primaryStage.setScene(mainScene);
-            } else {
-                loginStatus.setText("Incorrect username or password.");
-            }
+            primaryStage.setScene(mainScene);
+           
         });
 
         loginGroup.getChildren().add(borderPane);
@@ -101,90 +110,7 @@ public class App extends Application {
 
         
         // Main page ( Main scene )
-        BorderPane mainLayout = new BorderPane();
-
-        ToolBar toolBar = new ToolBar();
-        Button homeButton = new Button("Home");
-        Button tournamentButton = new Button("Tournaments");
-        Button profileButton = new Button("Profile");
-        toolBar.getItems().addAll(homeButton, tournamentButton, profileButton);
-        mainLayout.setBottom(toolBar);
-
-        Label titleLabel = new Label("Welcome to the Tournament App");
-        titleLabel.setFont(new Font("Arial", 20));
-        mainLayout.setTop(titleLabel);
-        BorderPane.setAlignment(titleLabel, Pos.CENTER);
-
-        HBox searchBox = new HBox();
-        Label searchLabel = new Label("Search by date:");
-        DatePicker searchDate = new DatePicker();
-        Button searchButton = new Button("Search");
-        searchBox.getChildren().addAll(searchLabel, searchDate, searchButton);
-        mainLayout.setLeft(searchBox);
-
-        Button addTournamentButton = new Button("Add Tournament");
-        mainLayout.setRight(addTournamentButton);
-        BorderPane.setAlignment(addTournamentButton, Pos.CENTER);
-
-        VBox tournamentList = new VBox();
-        tournamentList.setSpacing(10);
-        tournamentList.setAlignment(Pos.CENTER);
-        mainLayout.setCenter(tournamentList);
-
-        Button tournamentPageButton = new Button("Tournaments");
-
-        tournamentPageButton.setOnAction(e -> primaryStage.setScene(tournamentScene));
-
-        // Tournament page ( Tournament scene )
-        BorderPane tournamentLayout = new BorderPane();
-        tournamentLayout.setTop(new Label("Tournaments"));
-        tournamentLayout.setCenter(tournamentList);
-        tournamentLayout.setBottom(toolBar);
-        tournamentGroup.getChildren().add(tournamentLayout);
-
-        // Create a button to navigate to the add tournament page
-        Button addTournamentPageButton = new Button("Add Tournament");
-        addTournamentPageButton.setOnAction(e -> primaryStage.setScene(addTournamentScene));
-
-        // Create the scene for the add tournament page
-        GridPane addTournamentLayout = new GridPane();
-        addTournamentLayout.setAlignment(Pos.CENTER);
-        addTournamentLayout.setHgap(10);
-        addTournamentLayout.setVgap(10);
-        addTournamentLayout.add(new Label("Tournament Name:"), 0, 0);
-        TextField tournamentName = new TextField();
-        addTournamentLayout.add(tournamentName, 1, 0);
-        addTournamentLayout.add(new Label("Start Date:"), 0, 1);
-        DatePicker startDate = new DatePicker();
-        addTournamentLayout.add(startDate, 1, 1);
-        addTournamentLayout.add(new Label("End Date:"), 0, 2);
-        DatePicker endDate = new DatePicker();
-        addTournamentLayout.add(endDate, 1, 2);
-        Button addTournamentSubmitButton = new Button("Submit");
-        addTournamentSubmitButton.setOnAction(e -> {
-            String name = tournamentName.getText();
-            LocalDate start = startDate.getValue();
-            LocalDate end = endDate.getValue();
-            tournaments.add(new Tournament(0, null, null, 0, name));
-            tournamentList.getChildren().clear();
-            for (Tournament t : tournaments) {
-                tournamentList.getChildren().add(new Label("t.getName()"));
-            }
-            primaryStage.setScene(tournamentScene);
-        });
-        addTournamentLayout.add(addTournamentSubmitButton, 1, 3);
-        addTournamentGroup.getChildren().add(addTournamentLayout);
-
-        // Add the buttons to the main layout
-        mainLayout.setCenter(tournamentPageButton);
-        mainLayout.setRight(addTournamentPageButton);
-        mainLayout.setLeft(searchBox);
-        mainLayout.setBottom(toolBar);
-        mainLayout.setTop(titleLabel);
-        BorderPane.setAlignment(tournamentPageButton, Pos.CENTER);
-        BorderPane.setAlignment(addTournamentPageButton, Pos.CENTER);
-        mainGroup.getChildren().add(mainLayout);
-
+   
         primaryStage.setScene(loginScene);
         primaryStage.show();
     }

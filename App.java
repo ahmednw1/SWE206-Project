@@ -109,8 +109,7 @@ public class App extends Application {
         ///
 
         
-        // Main page ( Main scene )
-   
+        
         primaryStage.setScene(loginScene);
         primaryStage.show();
     }

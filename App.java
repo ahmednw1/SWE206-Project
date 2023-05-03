@@ -17,10 +17,10 @@ public class App extends Application {
   
   Parent root;
 try {
-    root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+    root = FXMLLoader.load(getClass().getResource("Matches.fxml"));
     Scene scene = new Scene(root);
         
-        primaryStage.setTitle("Login");
+        primaryStage.setTitle("Mathces");
           primaryStage.setScene(scene);
           primaryStage.show();
       } catch (IOException e) {

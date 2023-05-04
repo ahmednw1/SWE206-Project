@@ -1,5 +1,6 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 
 public class ProfileController {
@@ -12,6 +13,15 @@ public class ProfileController {
 
     @FXML
     private TableColumn<?, ?> Tournaments;
+
+    @FXML
+    private Label email;
+
+    @FXML
+    private Label name;
+
+    @FXML
+    private Label type;
 
     @FXML
     void HomeClicked(ActionEvent event) {

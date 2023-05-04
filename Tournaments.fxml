@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TournamentsController">
+   <children>
+      <ButtonBar layoutX="10.0" layoutY="540.0" prefHeight="60.0" prefWidth="480.0">
+         <buttons>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#HomeClicked" prefHeight="55.0" prefWidth="197.0">
+               <graphic>
+                  <ImageView fitHeight="43.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Imgs/home_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#MatchesClicked" prefHeight="52.0">
+               <graphic>
+                  <ImageView fitHeight="43.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Imgs/Match_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#ProfileClicked" prefHeight="54.0">
+               <graphic>
+                  <ImageView fitHeight="43.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Imgs/profile_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </buttons>
+      </ButtonBar>
+      <TabPane layoutX="31.0" layoutY="42.0" prefHeight="468.0" prefWidth="439.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab onSelectionChanged="#finishedTournamentsClicked" text="Finished Tournaments">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane prefHeight="434.0" prefWidth="439.0">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1060.0" prefWidth="353.0">
+                                 <children>
+                                    <FlowPane fx:id="card" layoutX="14.0" layoutY="27.0" prefHeight="181.0" prefWidth="336.0">
+                                       <children>
+                                          <Label fx:id="finishedTournament" alignment="CENTER" prefHeight="38.0" prefWidth="399.0" text="Tournament">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="finishedType" alignment="CENTER" prefHeight="40.0" prefWidth="401.0" text="Type">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="finishedStartDate" alignment="CENTER" prefHeight="38.0" prefWidth="159.0" text="StartDate" />
+                                          <Label alignment="CENTER" prefHeight="34.0" prefWidth="90.0" text="Until" />
+                                          <Label fx:id="finishedEndDate" alignment="CENTER" prefHeight="49.0" prefWidth="151.0" text="End Date" />
+                                          <Label fx:id="finishedParticipantsNumber" prefHeight="52.0" prefWidth="309.0" text="Number">
+                                             <graphic>
+                                                <ImageView fitHeight="28.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@Imgs/profile_icon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Label>
+                                          <RadioButton mnemonicParsing="false" onAction="#watchClicked" prefHeight="46.0" prefWidth="95.0" text="Watch" />
+                                          <Line endX="380.7157287597656" endY="34.92866516113281" startX="-24.577177047729492" startY="34.9288330078125" />
+                                       </children>
+                                       <effect>
+                                          <ColorAdjust brightness="-0.1" contrast="-1.0" hue="1.0" saturation="1.0" />
+                                       </effect>
+                                    </FlowPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab onSelectionChanged="#onGoingTournamentsClicked" text="Ongoing Tournaments">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane layoutY="2.0" prefHeight="434.0" prefWidth="439.0">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1060.0" prefWidth="353.0">
+                                 <children>
+                                    <FlowPane fx:id="card1" layoutX="14.0" layoutY="27.0" prefHeight="181.0" prefWidth="336.0">
+                                       <children>
+                                          <Label fx:id="onGoingTournament" alignment="CENTER" prefHeight="38.0" prefWidth="399.0" text="Tournament">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="onGoingType" alignment="CENTER" prefHeight="40.0" prefWidth="401.0" text="Type">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="onGoingStartDate" alignment="CENTER" prefHeight="38.0" prefWidth="159.0" text="StartDate" />
+                                          <Label alignment="CENTER" prefHeight="34.0" prefWidth="90.0" text="Until" />
+                                          <Label fx:id="onGoingEndDate" alignment="CENTER" prefHeight="49.0" prefWidth="151.0" text="End Date" />
+                                          <Label fx:id="onGoingParticipantsNumber" prefHeight="52.0" prefWidth="309.0" text="Number">
+                                             <graphic>
+                                                <ImageView fitHeight="28.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@Imgs/profile_icon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Label>
+                                          <RadioButton mnemonicParsing="false" onAction="#watchClicked" prefHeight="46.0" prefWidth="95.0" text="Watch" />
+                                          <Line endX="380.7157287597656" endY="34.92866516113281" startX="-24.577177047729492" startY="34.9288330078125" />
+                                       </children>
+                                       <effect>
+                                          <ColorAdjust brightness="-0.1" contrast="-1.0" hue="1.0" saturation="1.0" />
+                                       </effect>
+                                    </FlowPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab onSelectionChanged="#upcomingTournamentsClicked" text="Upcoming Tournaments">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane layoutY="14.0" prefHeight="434.0" prefWidth="439.0">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1060.0" prefWidth="353.0">
+                                 <children>
+                                    <FlowPane fx:id="card2" layoutX="14.0" layoutY="27.0" prefHeight="181.0" prefWidth="336.0">
+                                       <children>
+                                          <Label fx:id="upComingTournament" alignment="CENTER" prefHeight="38.0" prefWidth="399.0" text="Tournament">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="upComingType" alignment="CENTER" prefHeight="40.0" prefWidth="401.0" text="Type">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="upComingStartDate" alignment="CENTER" prefHeight="38.0" prefWidth="159.0" text="StartDate" />
+                                          <Label alignment="CENTER" prefHeight="34.0" prefWidth="90.0" text="Until" />
+                                          <Label fx:id="upComingEndDate" alignment="CENTER" prefHeight="49.0" prefWidth="151.0" text="End Date" />
+                                          <Label fx:id="upComingParticipantsNumber" prefHeight="52.0" prefWidth="309.0" text="Number">
+                                             <graphic>
+                                                <ImageView fitHeight="28.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@Imgs/profile_icon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Label>
+                                          <RadioButton mnemonicParsing="false" onAction="#enrollClicked" prefHeight="46.0" prefWidth="95.0" text="Enroll" />
+                                          <Line endX="380.7157287597656" endY="34.92866516113281" startX="-24.577177047729492" startY="34.9288330078125" />
+                                       </children>
+                                       <effect>
+                                          <ColorAdjust brightness="-0.1" contrast="-1.0" hue="1.0" saturation="1.0" />
+                                       </effect>
+                                    </FlowPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

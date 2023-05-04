@@ -17,7 +17,7 @@ public class App extends Application {
   
   Parent root;
 try {
-    root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+    root = FXMLLoader.load(getClass().getResource("Tournaments.fxml"));
     Scene scene = new Scene(root);
         
         primaryStage.setTitle("Mathces");

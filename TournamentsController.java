@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
@@ -67,12 +68,16 @@ public class TournamentsController {
     private Label upComingType;
 
     @FXML
+    private TabPane tabPane;
+
+    @FXML
     void HomeClicked(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        
     }
 
     @FXML
@@ -104,17 +109,18 @@ public class TournamentsController {
 
     @FXML
     void finishedTournamentsClicked(ActionEvent event) {
-
+        tabPane.getSelectionModel().select(0);
     }
 
     @FXML
     void onGoingTournamentsClicked(ActionEvent event) {
+        tabPane.getSelectionModel().clearAndSelect(1);
 
     }
 
     @FXML
     void upcomingTournamentsClicked(ActionEvent event) {
-
+        tabPane.getSelectionModel().select(2);;
     }
 
     @FXML

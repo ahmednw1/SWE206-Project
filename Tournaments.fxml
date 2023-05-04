@@ -48,7 +48,7 @@
             </Button>
          </buttons>
       </ButtonBar>
-      <TabPane layoutX="31.0" layoutY="42.0" prefHeight="468.0" prefWidth="439.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" layoutX="31.0" layoutY="42.0" prefHeight="468.0" prefWidth="439.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab onSelectionChanged="#finishedTournamentsClicked" text="Finished Tournaments">
             <content>

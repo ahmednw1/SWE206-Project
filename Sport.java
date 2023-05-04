@@ -20,5 +20,9 @@ public class Sport {
         return name;
     }
 
+    public String toString() {
+        return name;
+    }
+
     
 }

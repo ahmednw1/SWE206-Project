@@ -1,20 +1,27 @@
 import java.io.IOException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import java.util.ResourceBundle;
+import java.net.URL;
 
-public class AddTournament {
+public class AddTournament implements Initializable{
 
     @FXML
-    private ChoiceBox<?> Sport;
+    private ComboBox<Sport> sport;
+    
 
     @FXML
     private TextField daysBetweenMatches;
@@ -35,7 +42,19 @@ public class AddTournament {
     private TextField teamsNumber;
 
     @FXML
-    private ChoiceBox<?> type;
+    private ComboBox<String> type;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        Sport football = new Sport("Football");
+        Sport swimming = new Sport("Swimming");
+        Sport vollyball = new Sport("Vollyball");
+         ObservableList<Sport> sportList = FXCollections.observableArrayList(football,vollyball,swimming);
+         ObservableList<String> typeList = FXCollections.observableArrayList("Elimination","Round Robin");
+         sport.setItems(sportList);
+         type.setItems(typeList);
+    }    
+    
 
     @FXML
     void backClicked(ActionEvent event) throws IOException {
@@ -44,6 +63,7 @@ public class AddTournament {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        
     }
 
     @FXML
@@ -53,6 +73,16 @@ public class AddTournament {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    void sportClicked(ActionEvent event) throws IOException {
+    
+    }
+
+    @FXML
+    void typeClicked(ActionEvent event) {
+
     }
 
 

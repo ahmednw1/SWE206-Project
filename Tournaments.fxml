@@ -48,9 +48,9 @@
             </Button>
          </buttons>
       </ButtonBar>
-      <TabPane fx:id="tabPane" layoutX="31.0" layoutY="42.0" prefHeight="468.0" prefWidth="439.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" focusTraversable="false" layoutX="31.0" layoutY="42.0" prefHeight="468.0" prefWidth="439.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab onSelectionChanged="#finishedTournamentsClicked" text="Finished Tournaments">
+          <Tab text="Finished Tournaments">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -97,7 +97,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab onSelectionChanged="#onGoingTournamentsClicked" text="Ongoing Tournaments">
+          <Tab text="Ongoing Tournaments">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -143,7 +143,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab onSelectionChanged="#upcomingTournamentsClicked" text="Upcoming Tournaments">
+            <Tab text="Upcoming Tournaments">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

@@ -1,42 +1,48 @@
+
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 
-
-public class HomeController {
+public class watchTournamentController {
 
     @FXML
-    void AddScoresClicked(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Matches.fxml"));
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+    private FlowPane card;
 
     @FXML
-    void AddTournamentClicked(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("AddTournament.fxml"));
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+    private Label date;
 
     @FXML
-    void ExploreTournamentClicked(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Tournaments.fxml"));
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+    private Label goals1;
+
+    @FXML
+    private Label goals2;
+
+    @FXML
+    private TableColumn<?, ?> points;
+
+    @FXML
+    private TableColumn<?, ?> ranks;
+
+    @FXML
+    private Label team1;
+
+    @FXML
+    private Label team2;
+
+    @FXML
+    private TableColumn<?, ?> teams;
+
+    @FXML
+    private Label tournament;
 
     @FXML
     void HomeClicked(ActionEvent event) throws IOException {
@@ -65,4 +71,14 @@ public class HomeController {
         stage.show();
     }
 
+    @FXML
+    void backClicked(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Tournaments.fxml"));
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }
+

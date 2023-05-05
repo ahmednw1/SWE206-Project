@@ -109,4 +109,13 @@ public class Database {
 
     }
 
+    public void getUser(int parseInt) {
+    }
+
+    public void setCurrentUser(Admin admin) {
+    }
+
+    public void setCurrentUser(Student student) {
+    }
+
 }

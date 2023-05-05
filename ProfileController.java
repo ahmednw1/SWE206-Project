@@ -1,26 +1,29 @@
 import java.io.IOException;
-
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class ProfileController {
+public class ProfileController implements Initializable {
 
     @FXML
-    private TableColumn<?, ?> Status;
+    private TableColumn<Student, String> Status;
 
     @FXML
-    private TableColumn<?, ?> Teams;
+    private TableColumn<Student, String> Teams;
 
     @FXML
-    private TableColumn<?, ?> Tournaments;
+    private TableColumn<Student, String> Tournaments;
 
     @FXML
     private Label email;
@@ -31,10 +34,34 @@ public class ProfileController {
     @FXML
     private Label type;
 
-    
     @FXML
-    private TableView<?> table;
+    private TableView tableView;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        User user = App.database.getCurrentUser();
+        name.setText(user.getName());
+        if(user instanceof Admin){
+            type.setText("Admin");
+        }
+        else{
+            type.setText("Student");
+            Tournaments.setCellValueFactory(
+            new PropertyValueFactory<>("Tournamnet"));
+            Teams.setCellValueFactory(
+            new PropertyValueFactory<>("Team"));
+            Status.setCellValueFactory(
+                new PropertyValueFactory<>("Status"));
+
+            tableView.getItems().add((Student) user);
+                                            
+        }
+        email.setText(user.getEmail());  
+
+        
+
+    }
+    
     @FXML
     void HomeClicked(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
@@ -61,6 +88,8 @@ public class ProfileController {
         stage.setScene(scene);
         stage.show();
     }
+
+  
     }
 
 

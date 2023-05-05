@@ -11,11 +11,13 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
  
 public class App extends Application {
+
     static Database database = new Database();
+
+
     @Override
-    public void start(Stage primaryStage) {
+  public void start(Stage primaryStage) {
        
-  
   Parent root;
 try {
     root = FXMLLoader.load(getClass().getResource("Login.fxml"));

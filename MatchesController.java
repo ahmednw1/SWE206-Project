@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -57,69 +60,76 @@ public class MatchesController implements Initializable {
     void DateClicked(ActionEvent event) {
 
         VBox vbox = new VBox(); // create a new VBox to hold the AnchorPanes
-        for (int i = 0; i <= 4; i++) {
-            AnchorPane anchorPane = new AnchorPane();
-            anchorPane.setPrefSize(353.0, 100.0);
-            anchorPane.setTopAnchor(anchorPane, 0.0);
-            anchorPane.setLeftAnchor(anchorPane, 0.0);
-            anchorPane.setBottomAnchor(anchorPane, 0.0);
-            anchorPane.setRightAnchor(anchorPane, 0.0);
+        ArrayList<Tournament> tournaments = App.database.getTournaments();
+        for (int i = 0; i < tournaments.size(); i++) {
+            ArrayList<Match> matches = tournaments.get(i).getMatches();
+            for (int j = 0; j < matches.size(); j++) {
+                if (matches.get(j).getDate().equals(dateChosen)) {
+                    Match match = matches.get(j);
+                    AnchorPane anchorPane = new AnchorPane();
+                    anchorPane.setPrefSize(353.0, 100.0);
+                    anchorPane.setTopAnchor(anchorPane, 0.0);
+                    anchorPane.setLeftAnchor(anchorPane, 0.0);
+                    anchorPane.setBottomAnchor(anchorPane, 0.0);
+                    anchorPane.setRightAnchor(anchorPane, 0.0);
 
-            FlowPane card = new FlowPane();
-            card.setPrefSize(318.0, 152.0);
-            card.setLayoutX(18.0);
-            card.setLayoutY(27.0);
-            card.setEffect(new ColorAdjust(-0.1, -1.0, 1.0, 1.0));
+                    FlowPane card = new FlowPane();
+                    card.setPrefSize(318.0, 152.0);
+                    card.setLayoutX(18.0);
+                    card.setLayoutY(27.0);
+                    card.setEffect(new ColorAdjust(-0.1, -1.0, 1.0, 1.0));
 
-            Line line = new Line();
-            line.setStartX(-100.0);
-            line.setEndX(217.2928924560547);
-            line.setEndY(-0.621320366859436);
-            line.setStrokeWidth(1.0);
-            line.setStroke(Color.BLACK);
+                    Line line = new Line();
+                    line.setStartX(-100.0);
+                    line.setEndX(217.2928924560547);
+                    line.setEndY(-0.621320366859436);
+                    line.setStrokeWidth(1.0);
+                    line.setStroke(Color.BLACK);
 
-            Label team1 = new Label("Team1" + i);
-            team1.setPrefSize(144.0, 29.0);
-            team1.setAlignment(Pos.CENTER);
-            team1.setFont(new Font(24.0));
+                    Label team1 = new Label(match.getTeam1().getName());
+                    team1.setPrefSize(144.0, 29.0);
+                    team1.setAlignment(Pos.CENTER);
+                    team1.setFont(new Font(24.0));
 
-            Label vs = new Label("vs");
+                    Label vs = new Label("vs");
 
-            Label team2 = new Label("Team2");
-            team2.setPrefSize(151.0, 29.0);
-            team2.setAlignment(Pos.CENTER);
-            team2.setFont(new Font(24.0));
+                    Label team2 = new Label(match.getTeam2().getName());
+                    team2.setPrefSize(151.0, 29.0);
+                    team2.setAlignment(Pos.CENTER);
+                    team2.setFont(new Font(24.0));
 
-            Label goals1 = new Label("Goals1" + 1);
-            goals1.setPrefSize(143.0, 38.0);
-            goals1.setAlignment(Pos.CENTER);
+                    Label goals1 = new Label(match.getScore().get(0).toString(i));
+                    goals1.setPrefSize(143.0, 38.0);
+                    goals1.setAlignment(Pos.CENTER);
 
-            Label vs2 = new Label("vs");
+                    Label vs2 = new Label("vs");
 
-            Label goals2 = new Label("Goals2");
-            goals2.setPrefSize(141.0, 38.0);
-            goals2.setAlignment(Pos.CENTER);
+                    Label goals2 = new Label(match.getScore().get(1).toString(i));
+                    goals2.setPrefSize(141.0, 38.0);
+                    goals2.setAlignment(Pos.CENTER);
 
-            Label tournament = new Label("Tournament " + dateChosen.toString());
-            tournament.setPrefSize(317.0, 34.0);
-            tournament.setAlignment(Pos.CENTER);
+                    Label tournament = new Label(tournaments.get(i).tString());
+                    tournament.setPrefSize(317.0, 34.0);
+                    tournament.setAlignment(Pos.CENTER);
 
-            Label date = new Label("Date");
-            date.setPrefSize(317.0, 34.0);
-            date.setAlignment(Pos.CENTER);
+                    Label date = new Label(dateChosen.toString());
+                    date.setPrefSize(317.0, 34.0);
+                    date.setAlignment(Pos.CENTER);
 
-            card.getChildren().addAll(team1, vs, team2, goals1, vs2, goals2, tournament, date, line);
+                    card.getChildren().addAll(team1, vs, team2, goals1, vs2, goals2, tournament, date, line);
 
-            ColorAdjust effect = new ColorAdjust();
-            effect.setBrightness(-0.1);
-            effect.setContrast(-1.0);
-            effect.setHue(1.0);
-            effect.setSaturation(1.0);
+                    ColorAdjust effect = new ColorAdjust();
+                    effect.setBrightness(-0.1);
+                    effect.setContrast(-1.0);
+                    effect.setHue(1.0);
+                    effect.setSaturation(1.0);
 
-            card.setEffect(effect);
+                    card.setEffect(effect);
 
-            anchorPane.getChildren().add(card);
-            vbox.getChildren().add(anchorPane); // add each AnchorPane to the VBox
+                    anchorPane.getChildren().add(card);
+                    vbox.getChildren().add(anchorPane); // add each AnchorPane to the VBox
+                }
+            }
         }
         LO.setContent(vbox); // set the VBox as the content of the ScrollPane
     }
@@ -153,10 +163,7 @@ public class MatchesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'initialize'");
-        LocalDate today;
-
+        dateChosen.setValue(LocalDate.now());
         DateClicked(null);
 
     }

@@ -22,10 +22,10 @@ public class ProfileController implements Initializable {
 
 
     @FXML
-    private TableColumn<TabelProfile, String> team;
+    private TableColumn<TabelProfile, String> Teams;
 
     @FXML
-    private TableColumn<TabelProfile, String> tournament;
+    private TableColumn<TabelProfile, String> Tournaments;
 
     @FXML
     private Label email;
@@ -48,10 +48,12 @@ public class ProfileController implements Initializable {
         }
         else{
             type.setText("Student");
+
             Student student = (Student) user;
-            tournament.setCellValueFactory(
+            Tournaments.setCellValueFactory(
             new PropertyValueFactory<>("tournamnet"));
-            team.setCellValueFactory(
+
+            Teams.setCellValueFactory(
             new PropertyValueFactory<>("team"));
         
 

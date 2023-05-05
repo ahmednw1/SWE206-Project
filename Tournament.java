@@ -18,6 +18,7 @@ public class Tournament implements Serializable{
     private int teamNumber;
     private String tournamentType;
     private ArrayList<Match> matches;
+    private String name;
 
     public Tournament(int eachStageDays, LocalDate startDate, LocalDate endtDate,Sport sport, int teamNumber, String tournamentType ,int capacity ) {
         this.eachStageDays = eachStageDays;
@@ -202,6 +203,10 @@ public class Tournament implements Serializable{
             matches.add(match);
         }
 
+
+    }
+    public String tString(){
+        return name;
     }
     
     

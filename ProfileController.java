@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,14 +19,13 @@ import javafx.stage.Stage;
 
 public class ProfileController implements Initializable {
 
-    @FXML
-    private TableColumn<Student, String> Status;
+
 
     @FXML
-    private TableColumn<Student, String> Teams;
+    private TableColumn<TabelProfile, String> team;
 
     @FXML
-    private TableColumn<Student, String> Tournaments;
+    private TableColumn<TabelProfile, String> tournament;
 
     @FXML
     private Label email;
@@ -46,14 +48,18 @@ public class ProfileController implements Initializable {
         }
         else{
             type.setText("Student");
-            Tournaments.setCellValueFactory(
-            new PropertyValueFactory<>("Tournamnet"));
-            Teams.setCellValueFactory(
-            new PropertyValueFactory<>("Team"));
-            Status.setCellValueFactory(
-                new PropertyValueFactory<>("Status"));
+            Student student = (Student) user;
+            tournament.setCellValueFactory(
+            new PropertyValueFactory<>("tournamnet"));
+            team.setCellValueFactory(
+            new PropertyValueFactory<>("team"));
+        
 
-            tableView.getItems().add((Student) user);
+            ObservableList<TabelProfile> list = FXCollections.observableArrayList();
+            for(int i=0; i<student.getTeams().size();i++ ){
+                list.add(new TabelProfile(student.getTeams().get(i).toString(), student.getTeams().get(i).getTournament().tString()));
+            }
+            tableView.setItems(list);
                                             
         }
         email.setText(user.getEmail());  

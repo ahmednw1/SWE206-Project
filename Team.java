@@ -48,4 +48,7 @@ public class Team implements Serializable {
         this.scoreFor += scoreFor;
         this.scoreAgainst += scoreAgainst;
     }
+    public String toString(){
+        return name;
+    }
 }

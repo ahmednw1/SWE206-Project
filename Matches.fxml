@@ -26,37 +26,8 @@
             <Image url="@home_icon.png" />
          </image>
       </ImageView>
-      <ScrollPane layoutX="64.0" layoutY="109.0" prefHeight="382.0" prefWidth="372.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1060.0" prefWidth="353.0">
-               <children>
-                  <FlowPane fx:id="card" layoutX="18.0" layoutY="27.0" prefHeight="152.0" prefWidth="318.0">
-                     <children>
-                        <Label fx:id="team1" alignment="CENTER" prefHeight="29.0" prefWidth="144.0" text="Team1">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <Label text="vs" />
-                        <Label fx:id="team2" alignment="CENTER" prefHeight="29.0" prefWidth="151.0" text="Team2">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="goals1" alignment="CENTER" prefHeight="38.0" prefWidth="143.0" text="Goals1" />
-                        <Label text="vs" />
-                        <Label fx:id="goals2" alignment="CENTER" prefHeight="38.0" prefWidth="141.0" text="Goals2" />
-                        <Label fx:id="tournament" alignment="CENTER" prefHeight="34.0" prefWidth="317.0" text="Tournament" />
-                        <Label fx:id="date" alignment="CENTER" prefHeight="34.0" prefWidth="317.0" text="Date" />
-                        <Line endX="217.2928924560547" endY="-0.621320366859436" startX="-100.0" />
-                     </children>
-                     <effect>
-                        <ColorAdjust brightness="-0.1" contrast="-1.0" hue="1.0" saturation="1.0" />
-                     </effect>
-                  </FlowPane>
-               </children>
-            </AnchorPane>
-        </content>
+      <ScrollPane fx:id="LO" layoutX="64.0" layoutY="109.0" prefHeight="382.0" prefWidth="372.0">
+        
       </ScrollPane>
       <ButtonBar layoutX="7.0" layoutY="537.0" prefHeight="60.0" prefWidth="480.0">
         <buttons>

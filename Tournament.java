@@ -20,7 +20,7 @@ public class Tournament implements Serializable{
     private ArrayList<Match> matches;
     private String name;
 
-    public Tournament(int eachStageDays, LocalDate startDate, LocalDate endtDate,Sport sport, int teamNumber, String tournamentType ,int capacity ) {
+    public Tournament(String name,int eachStageDays, LocalDate startDate, LocalDate endtDate,Sport sport, int teamNumber, String tournamentType ,int capacity ) {
         this.eachStageDays = eachStageDays;
         this.startDate = startDate;
         this.endDate = endtDate;
@@ -30,6 +30,7 @@ public class Tournament implements Serializable{
         this.matches = new ArrayList<>();
         this.registerationOpen = true;
         this.capacity = capacity;
+        this.name = name;
     }
 
     public void addEndDate(LocalDate endDate) {

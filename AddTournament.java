@@ -93,7 +93,7 @@ public class AddTournament implements Initializable {
             LocalDate startDateValue = startDate.getValue();
             LocalDate endDateValue = endDate.getValue();
             int eachStageDays = Integer.parseInt(daysBetweenMatches.getText());
-            Tournament newTournament = new Tournament(eachStageDays, startDateValue, endDateValue, sportValue,
+            Tournament newTournament = new Tournament(nameValue,eachStageDays, startDateValue, endDateValue, sportValue,
                     teamMembersValue, typeValue, teamsNumberValue);
             App.getTournaments().add(newTournament);
             App.write();

@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -11,9 +12,14 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
  
 public class App extends Application {
-
     static Database database = new Database();
+    static ArrayList<User> users = database.getUsers();
+    static ArrayList<Tournament> tournaments = database.getTournaments();
+    static ArrayList<Team> teams = database.getTeams();
 
+
+
+    
 
     @Override
   public void start(Stage primaryStage) {
@@ -35,4 +41,21 @@ try {
  public static void main(String[] args) {
         launch(args);
     }
+
+    public static void write(){
+      database.write(getTournaments(), getTeams(), getUsers());
+      tournaments = database.getTournaments();
+      users = database.getUsers();
+      teams = database.getTeams();
+    }
+    public static ArrayList<Tournament> getTournaments(){
+      return tournaments;
+    }
+    public static ArrayList<User> getUsers(){
+      return users;
+    }
+    public static ArrayList<Team> getTeams(){
+      return teams;
+    }
 }
+

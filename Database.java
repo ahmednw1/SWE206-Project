@@ -9,8 +9,8 @@ public class Database {
         file = "Data.exe";
     }
 
-    public ArrayList<Student>getStudents() {
-        ArrayList<Student> students = new ArrayList<Student>();
+    public ArrayList<User> getUsers() {
+        ArrayList<User> users = new ArrayList<User>();
         try {
             FileInputStream input = new FileInputStream(file);
             ObjectInputStream objStream = new ObjectInputStream(input);
@@ -18,7 +18,7 @@ public class Database {
                 Object obj = objStream.readObject();
                 if (obj instanceof Student) {
                     Student student = (Student) obj;
-                    students.add(student);
+                    users.add(student);
                 }
 
             }
@@ -27,7 +27,7 @@ public class Database {
         } catch (Exception e) {
             e.getStackTrace();
         }
-        return students;
+        return users;
     }
 
     public User getUser(int ID) {
@@ -74,31 +74,38 @@ public class Database {
     }
 
     public ArrayList<Tournament> getTournaments() {
-        ArrayList<Tournament> tournaments = new ArrayList<Tournament>();
-        try {
-            FileInputStream input = new FileInputStream(file);
-            ObjectInputStream objStream = new ObjectInputStream(input);
-            while (objStream.available() > 0) {
+        ArrayList<Tournament> tournaments = new ArrayList<>();
+        try (ObjectInputStream objStream = new ObjectInputStream(new FileInputStream(file))) {
+            while (true) {
                 Object obj = objStream.readObject();
                 if (obj instanceof Tournament) {
                     Tournament tournament = (Tournament) obj;
                     tournaments.add(tournament);
                 }
-
             }
-            input.close();
-            objStream.close();
+        } catch (EOFException e) {
+            //
         } catch (Exception e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
         return tournaments;
     }
 
-    public void write(Object obj) {
+    public void write(ArrayList<Tournament> tournaments, ArrayList<Team> teams, ArrayList<User> users) {
         try {
-            FileOutputStream output = new FileOutputStream(file, true);
+            FileOutputStream output = new FileOutputStream(file);
             ObjectOutputStream objStream = new ObjectOutputStream(output);
-            objStream.writeObject(obj);
+
+            for (int i = 0; i < tournaments.size(); i++) {
+                objStream.writeObject(tournaments.get(i));
+            }
+            for (int i = 0; i < teams.size(); i++) {
+                objStream.writeObject(teams.get(i));
+            }
+            for (int i = 0; i < users.size(); i++) {
+                objStream.writeObject(users.get(i));
+            }
+
             output.close();
             objStream.close();
 
@@ -109,10 +116,12 @@ public class Database {
         }
 
     }
-    public void setCurrentUser(User user){
+
+    public void setCurrentUser(User user) {
         currentUser = user;
     }
-    public User getCurrentUser(){
+
+    public User getCurrentUser() {
         return currentUser;
     }
 

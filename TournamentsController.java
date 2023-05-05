@@ -1,17 +1,24 @@
 import java.io.IOException;
+import java.io.Serializable;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
-public class TournamentsController {
+public class TournamentsController implements Initializable {
 
     @FXML
     private FlowPane card;
@@ -71,6 +78,14 @@ public class TournamentsController {
     private TabPane tabPane;
 
     @FXML
+    private ScrollPane finishedScrollPane;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        
+    }
+
+    @FXML
     void HomeClicked(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -109,18 +124,18 @@ public class TournamentsController {
 
     @FXML
     void finishedTournamentsClicked(ActionEvent event) {
-        tabPane.getSelectionModel().select(0);
+        
     }
 
     @FXML
     void onGoingTournamentsClicked(ActionEvent event) {
-        tabPane.getSelectionModel().clearAndSelect(1);
+        
 
     }
 
     @FXML
     void upcomingTournamentsClicked(ActionEvent event) {
-        tabPane.getSelectionModel().select(2);;
+        
     }
 
     @FXML
@@ -131,5 +146,6 @@ public class TournamentsController {
         stage.setScene(scene);
         stage.show();
     }
+
 
 }

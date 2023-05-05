@@ -14,7 +14,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AddTournament">
    <children>
       <Group layoutX="60.0" layoutY="84.0" />
-      <Button layoutX="185.0" layoutY="502.0" mnemonicParsing="false" onAction="#addClicked" text="Add">
+      <Button layoutX="185.0" layoutY="511.0" mnemonicParsing="false" onAction="#addClicked" text="Add">
          <font>
             <Font size="36.0" />
          </font>
@@ -81,5 +81,6 @@
       <TextField fx:id="daysBetweenMatches" layoutX="321.0" layoutY="434.0" prefHeight="25.0" prefWidth="122.0" />
       <ComboBox fx:id="sport" layoutX="136.0" layoutY="185.0" prefHeight="25.0" prefWidth="303.0" />
       <ComboBox fx:id="type" layoutX="136.0" layoutY="229.0" prefHeight="25.0" prefWidth="303.0" />
+      <Label fx:id="invalidMessage" layoutX="166.0" layoutY="475.0" prefHeight="17.0" prefWidth="184.0" />
    </children>
 </AnchorPane>

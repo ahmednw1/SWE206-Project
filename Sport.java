@@ -1,4 +1,6 @@
-public class Sport {
+import java.io.Serializable;
+
+public class Sport implements Serializable{
     private String description;
     private String name;
 

@@ -54,7 +54,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane prefHeight="434.0" prefWidth="439.0">
+                        <ScrollPane fx:id="finishedScrollPane" prefHeight="434.0" prefWidth="439.0">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1060.0" prefWidth="353.0">
                                  <children>

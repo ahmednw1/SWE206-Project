@@ -9,6 +9,7 @@ public class Tournament {
     private int eachStageDays;
     private LocalDate endDate;
     private ArrayList<Team> participants;
+    private int capacity;
     //private String participationType;
     private boolean registerationOpen;
     private Sport sport;
@@ -17,15 +18,16 @@ public class Tournament {
     private String tournamentType;
     private ArrayList<Match> matches;
 
-    public Tournament(int eachStageDays, LocalDate startDate, Sport sport, int teamNumber, String tournamentType ,ArrayList<Team> participants) {
+    public Tournament(int eachStageDays, LocalDate startDate, LocalDate endtDate,Sport sport, int teamNumber, String tournamentType ,int capacity ) {
         this.eachStageDays = eachStageDays;
         this.startDate = startDate;
+        this.endDate = endtDate;
         this.sport = sport;
         this.teamNumber = teamNumber;
         this.tournamentType = tournamentType;
-        this.participants = participants;
         this.matches = new ArrayList<>();
         this.registerationOpen = true;
+        this.capacity = capacity;
     }
 
     public void addEndDate(LocalDate endDate) {
@@ -33,7 +35,7 @@ public class Tournament {
     }
 
     public void addParticipant(Team team) {
-        if (this.participants.size() < this.teamNumber && this.registerationOpen) {
+        if (this.participants.size() < this.capacity && this.registerationOpen) {
             this.participants.add(team);
         }
     }

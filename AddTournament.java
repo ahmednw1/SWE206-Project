@@ -13,9 +13,16 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
+
 import java.util.ResourceBundle;
+
+import javax.swing.plaf.synth.SynthSpinnerUI;
+
 import java.net.URL;
+import java.time.LocalDate;
 
 public class AddTournament implements Initializable{
 
@@ -53,7 +60,7 @@ public class AddTournament implements Initializable{
          ObservableList<String> typeList = FXCollections.observableArrayList("Elimination","Round Robin");
          sport.setItems(sportList);
          type.setItems(typeList);
-    }    
+    }
     
 
     @FXML
@@ -68,21 +75,24 @@ public class AddTournament implements Initializable{
 
     @FXML
     void addClicked(ActionEvent event) throws IOException {
+        String nameValue = name.getText();
+        Sport sportValue = sport.getValue();
+        String typeValue = type.getValue();
+        int teamsNumberValue = Integer.parseInt(teamsNumber.getText());
+        int teamMembersValue = Integer.parseInt(teamMembers.getText());
+        LocalDate startDateValue = startDate.getValue();
+        LocalDate endDateValue = endDate.getValue();
+        int eachStageDays = Integer.parseInt(daysBetweenMatches.getText());
+        Tournament newTournament = new Tournament(eachStageDays, startDateValue, endDateValue,sportValue, teamMembersValue, typeValue, teamsNumberValue);
+        //App.database.write(newTournament);  
+    
+        
+
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-    @FXML
-    void sportClicked(ActionEvent event) throws IOException {
-    
-    }
-
-    @FXML
-    void typeClicked(ActionEvent event) {
-
     }
 
 

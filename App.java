@@ -11,6 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
  
 public class App extends Application {
+    static Database database = new Database();
     @Override
     public void start(Stage primaryStage) {
        

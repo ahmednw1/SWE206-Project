@@ -79,7 +79,7 @@
          </font>
       </Label>
       <TextField fx:id="daysBetweenMatches" layoutX="321.0" layoutY="434.0" prefHeight="25.0" prefWidth="122.0" />
-      <ComboBox fx:id="sport" layoutX="136.0" layoutY="185.0" onAction="#sportClicked" prefHeight="25.0" prefWidth="303.0" />
-      <ComboBox fx:id="type" layoutX="136.0" layoutY="229.0" onAction="#typeClicked" prefHeight="25.0" prefWidth="303.0" />
+      <ComboBox fx:id="sport" layoutX="136.0" layoutY="185.0" prefHeight="25.0" prefWidth="303.0" />
+      <ComboBox fx:id="type" layoutX="136.0" layoutY="229.0" prefHeight="25.0" prefWidth="303.0" />
    </children>
 </AnchorPane>

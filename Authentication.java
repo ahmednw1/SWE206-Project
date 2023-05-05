@@ -5,10 +5,10 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-public class AuthenticationExample {
+public class Authentication{
     public static void main(String[] args) {
-        String username = "your_username";
-        String password = "your_password";
+        String username = "9215";
+        String password = "6199";
         String endpointUrl = "https://us-central1-swe206-221.cloudfunctions.net/app/UserSignIn";
         
         try {

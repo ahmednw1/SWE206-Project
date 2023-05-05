@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class Database {
     private String file;
+    private User currentUser;
 
     public Database() {
         file = "Data.exe";
@@ -29,16 +30,16 @@ public class Database {
         return students;
     }
 
-    public Student getStudent(int ID) throws Exception {
+    public User getUser(int ID) {
         try {
             FileInputStream input = new FileInputStream(file);
             ObjectInputStream objStream = new ObjectInputStream(input);
             while (objStream.available() > 0) {
                 Object obj = objStream.readObject();
-                if (obj instanceof Student) {
-                    Student student = (Student) obj;
-                    if (student.getID() == ID) {
-                        return student;
+                if (obj instanceof User) {
+                    User user = (User) obj;
+                    if (user.getID() == ID) {
+                        return user;
                     }
                 }
 
@@ -48,7 +49,7 @@ public class Database {
         } catch (Exception e) {
             e.getStackTrace();
         }
-        throw new Exception("Student not found");
+        return null;
     }
 
     public ArrayList<Team> getTeams() {
@@ -108,14 +109,11 @@ public class Database {
         }
 
     }
-
-    public void getUser(int parseInt) {
+    public void setCurrentUser(User user){
+        currentUser = user;
     }
-
-    public void setCurrentUser(Admin admin) {
-    }
-
-    public void setCurrentUser(Student student) {
+    public User getCurrentUser(){
+        return currentUser;
     }
 
 }

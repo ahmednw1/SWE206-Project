@@ -25,6 +25,7 @@ public class LoginController {
     private TextField username;
     @FXML
     private Label invalidMessage;
+
     @FXML
     void LoginClicked(ActionEvent event) {
         String name = username.getText();
@@ -32,25 +33,38 @@ public class LoginController {
         try {
             String info = authentiacate(name, pass);
             if (info != null) {
-                App.database.getUser(Integer.parseInt(name));
-            } else {
-                JSONObject jsonObject = new JSONObject(info);
-                if (jsonObject.getString("type").equals("admin")) {
-                    Admin admin = new Admin(jsonObject.getString("email"), Integer.parseInt(name),
-                            jsonObject.getString("name"), pass);
-                    App.database.setCurrentUser(admin);
+                User user = App.database.getUser(Integer.parseInt(name));
+                if (user == null) {
+                    JSONObject jsonObject = new JSONObject(info);
+                    if (jsonObject.getString("type").equals("admin")) {
+                        Admin admin = new Admin(jsonObject.getString("email"), Integer.parseInt(name),
+                                jsonObject.getString("name"), pass);
+                        App.database.setCurrentUser(admin);
+
+                    } else {
+                        Student student = new Student(jsonObject.getString("email"), Integer.parseInt(name),
+                                jsonObject.getString("name"), pass);
+                        App.database.setCurrentUser(student);
+
+                    }
 
                 } else {
-                    Student student = new Student(jsonObject.getString("email"), Integer.parseInt(name),
-                            jsonObject.getString("name"), pass);
-                    App.database.setCurrentUser(student);
+                    App.database.setCurrentUser(user);
 
                 }
 
+                Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+
+            } else {
+                invalidMessage.setText("Invalid Username or Password");
             }
 
         } catch (Exception e) {
-            invalidMessage.setText("aaaa");
+            invalidMessage.setText(e.getMessage());
         }
 
     }
@@ -64,10 +78,11 @@ public class LoginController {
             connection.setRequestMethod("GET");
 
             // Add authorization header with Base64 encoded username and password
-            String auth = username + ":" + pass;
-            byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.UTF_8));
-            String authHeaderValue = "Basic " + new String(encodedAuth);
-            connection.setRequestProperty("Authorization", authHeaderValue);
+            // String auth = username + ":" + pass;
+            // byte[] encodedAuth =
+            // Base64.getEncoder().encode(auth.getBytes(StandardCharsets.UTF_8));
+            // String authHeaderValue = "Basic " + new String(encodedAuth);
+            // connection.setRequestProperty("Authorization", authHeaderValue);
 
             // Read the response from the API endpoint
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -84,5 +99,4 @@ public class LoginController {
         }
     }
 
-   
 }

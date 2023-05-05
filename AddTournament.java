@@ -85,14 +85,14 @@ public class AddTournament implements Initializable{
         int eachStageDays = Integer.parseInt(daysBetweenMatches.getText());
         Tournament newTournament = new Tournament(eachStageDays, startDateValue, endDateValue,sportValue, teamMembersValue, typeValue, teamsNumberValue);
         //App.database.write(newTournament);  
-    
+        System.out.println(App.database.getTournaments().toString());
         
 
-        Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        // Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+        // Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        // Scene scene = new Scene(root);
+        // stage.setScene(scene);
+        // stage.show();
     }
 
 

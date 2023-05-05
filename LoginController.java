@@ -5,14 +5,13 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import org.json.JSONObject;
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -24,10 +23,36 @@ public class LoginController {
 
     @FXML
     private TextField username;
-
+    @FXML
+    private Label invalidMessage;
     @FXML
     void LoginClicked(ActionEvent event) {
-        
+        String name = username.getText();
+        String pass = password.getText();
+        try {
+            String info = authentiacate(name, pass);
+            if (info != null) {
+                App.database.getUser(Integer.parseInt(name));
+            } else {
+                JSONObject jsonObject = new JSONObject(info);
+                if (jsonObject.getString("type").equals("admin")) {
+                    Admin admin = new Admin(jsonObject.getString("email"), Integer.parseInt(name),
+                            jsonObject.getString("name"), pass);
+                    App.database.setCurrentUser(admin);
+
+                } else {
+                    Student student = new Student(jsonObject.getString("email"), Integer.parseInt(name),
+                            jsonObject.getString("name"), pass);
+                    App.database.setCurrentUser(student);
+
+                }
+
+            }
+
+        } catch (Exception e) {
+            invalidMessage.setText("aaaa");
+        }
+
     }
 
     public static String authentiacate(String username, String pass) throws Exception {

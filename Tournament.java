@@ -8,6 +8,7 @@ import java.util.List;
 public class Tournament {
     private int eachStageDays;
     private LocalDate endDate;
+    private String TournamentName;
     private ArrayList<Team> participants;
     //private String participationType;
     private boolean registerationOpen;
@@ -199,6 +200,14 @@ public class Tournament {
             matches.add(match);
         }
 
+    }
+
+    public String getTournamentName(){
+        return TournamentName;
+    }
+
+    public int getParticipantNumber(){
+        return participants.size();
     }
     
     

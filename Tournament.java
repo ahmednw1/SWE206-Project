@@ -9,7 +9,7 @@ import java.util.List;
 public class Tournament implements Serializable{
     private int eachStageDays;
     private LocalDate endDate;
-    private ArrayList<Team> participants;
+    private ArrayList<Team> participants = new ArrayList<>();
     private int capacity;
     //private String participationType;
     private boolean registerationOpen;
@@ -17,7 +17,7 @@ public class Tournament implements Serializable{
     private LocalDate startDate;
     private int teamNumber;
     private String tournamentType;
-    private ArrayList<Match> matches;
+    private ArrayList<Match> matches= new ArrayList<>();
     private String name;
 
     public Tournament(String name,int eachStageDays, LocalDate startDate, LocalDate endtDate,Sport sport, int teamNumber, String tournamentType ,int capacity ) {
@@ -208,6 +208,9 @@ public class Tournament implements Serializable{
     }
     public String tString(){
         return name;
+    }
+    public String numberString(){
+        return teamNumber + "";
     }
     
     

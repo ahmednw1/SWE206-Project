@@ -31,7 +31,7 @@
       <Label fx:id="name" layoutX="59.0" layoutY="60.0" prefHeight="32.0" prefWidth="150.0" text="Name" />
       <Label fx:id="type" layoutX="57.0" layoutY="98.0" prefHeight="32.0" prefWidth="150.0" text="Admin / Student" />
       <Label fx:id="email" layoutX="57.0" layoutY="140.0" prefHeight="32.0" prefWidth="150.0" text="Email" />
-      <TableView layoutX="25.0" layoutY="215.0" prefHeight="270.0" prefWidth="451.0">
+      <TableView fx:id="tableView" layoutX="25.0" layoutY="215.0" prefHeight="270.0" prefWidth="451.0">
         <columns>
           <TableColumn fx:id="Tournaments" prefWidth="225.0" text="Tournaments:" />
           <TableColumn fx:id="Teams" prefWidth="225.0" text="Teams:" />

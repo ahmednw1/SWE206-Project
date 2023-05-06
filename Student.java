@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Student extends User {
-    private ArrayList<Team> teams;
+    private ArrayList<Team> teams = new ArrayList<>();
     
     public Student(String email, int ID, String name, String pass) {
         super(email, ID, name, pass);

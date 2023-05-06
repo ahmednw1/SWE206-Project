@@ -2,10 +2,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -13,7 +18,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -21,11 +29,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class watchTournamentController implements Initializable {
-
-    static Tournament tournament;
 
     @FXML
     private FlowPane card;
@@ -59,10 +69,15 @@ public class watchTournamentController implements Initializable {
 
     @FXML
     private Label tournamentLabel;
+    private ScrollPane scrollPane;
+
+    @FXML
+    private Label tournamentLabel;
 
     @FXML
     void HomeClicked(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -73,6 +88,7 @@ public class watchTournamentController implements Initializable {
     void MatchesClicked(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Matches.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -81,6 +97,7 @@ public class watchTournamentController implements Initializable {
     @FXML
     void ProfileClicked(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Profile.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -91,6 +108,7 @@ public class watchTournamentController implements Initializable {
     void backClicked(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Tournaments.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -98,8 +116,9 @@ public class watchTournamentController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+        // TODO Auto-generated method stub
         VBox vbox = new VBox();
+        Tournament tournament = App.database.getTournaments().get(0);
         ArrayList<Match> matches = tournament.getMatches();
         Label tournamentLabel = new Label(tournament.tString());
         tournamentLabel.setPrefSize(317.0, 34.0);
@@ -169,12 +188,7 @@ public class watchTournamentController implements Initializable {
         }
         scrollPane.setContent(vbox);
 
-       
-    }
-
-    public static void select(Tournament t) {
-        tournament = t;
-        t.generateMatches();
+        throw new UnsupportedOperationException("Unimplemented method 'initialize'");
     }
 
 }

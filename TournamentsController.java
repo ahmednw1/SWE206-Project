@@ -131,7 +131,7 @@ public class TournamentsController implements Initializable {
                 endDateLabel.setAlignment(Pos.CENTER);
                 endDateLabel.setId("finishedEndDate");
 
-                Label participantsLabel = new Label(tournaments.get(i).numberString());
+                Label participantsLabel = new Label(tournaments.get(i).numberString() );
                 participantsLabel.setPrefSize(309.0, 52.0);
                 participantsLabel.setAlignment(Pos.CENTER_LEFT);
                 participantsLabel.setId("finishedParticipantsNumber");
@@ -209,7 +209,7 @@ public class TournamentsController implements Initializable {
                 endDateLabel.setId("finishedEndDate");
 
                 Label participantsLabel = new Label(tournaments.get(i).numberString());
-                participantsLabel.setPrefSize(170.0, 52.0);
+                participantsLabel.setPrefSize(309.0, 52.0);
                 participantsLabel.setAlignment(Pos.CENTER_LEFT);
                 participantsLabel.setId("finishedParticipantsNumber");
 
@@ -221,13 +221,15 @@ public class TournamentsController implements Initializable {
                 RadioButton enrollButton = new RadioButton("Enroll");
                 enrollButton.setPrefSize(95.0, 46.0);
                 Tournament t = tournaments.get(i);
+                Tournament t = tournaments.get(i);
                 enrollButton.setOnAction(event -> {
                     try {
+                        EnrollmentController.select(t);
                         EnrollmentController.select(t);
                         enrollClicked(event);
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
-
+                        
                         e.printStackTrace();
                     }
 
@@ -302,7 +304,7 @@ public class TournamentsController implements Initializable {
                 endDateLabel.setAlignment(Pos.CENTER);
                 endDateLabel.setId("finishedEndDate");
 
-                Label participantsLabel = new Label(tournaments.get(i).numberString());
+                Label participantsLabel = new Label( tournaments.get(i).numberString());
                 participantsLabel.setPrefSize(309.0, 52.0);
                 participantsLabel.setAlignment(Pos.CENTER_LEFT);
                 participantsLabel.setId("finishedParticipantsNumber");
@@ -340,10 +342,12 @@ public class TournamentsController implements Initializable {
                 vboxCurrent.getChildren().add(anchorPane);
             }
         }
-
+        
         finishedScrollPane.setContent(vboxFinish);
         upcomingScrollPane.setContent(vboxFuture);
         ongoingScrollPane.setContent(vboxCurrent);
+        
+        
 
     }
 
@@ -401,15 +405,6 @@ public class TournamentsController implements Initializable {
 
     @FXML
     void watchClicked(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("WatchTournament.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    void generateClicked(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("WatchTournament.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);

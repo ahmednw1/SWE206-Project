@@ -10,20 +10,18 @@ public class Database {
     }
 
     public ArrayList<User> getUsers() {
-        ArrayList<User> users = new ArrayList<User>();
-        try {
-            FileInputStream input = new FileInputStream(file);
-            ObjectInputStream objStream = new ObjectInputStream(input);
-            while (objStream.available() > 0) {
-                Object obj = objStream.readObject();
-                if (obj instanceof Student) {
-                    Student student = (Student) obj;
-                    users.add(student);
-                }
+        ArrayList<User> users = new ArrayList<>();
 
+        try (ObjectInputStream objStream = new ObjectInputStream(new FileInputStream(file))) {
+            while (true) {
+                Object obj = objStream.readObject();
+                if (obj instanceof User) {
+                    User user = (User) obj;
+                    users.add(user);
+                }
             }
-            input.close();
-            objStream.close();
+        } catch (EOFException e) {
+            //
         } catch (Exception e) {
             e.getStackTrace();
         }
@@ -31,21 +29,19 @@ public class Database {
     }
 
     public User getUser(int ID) {
-        try {
-            FileInputStream input = new FileInputStream(file);
-            ObjectInputStream objStream = new ObjectInputStream(input);
-            while (objStream.available() > 0) {
+        try (ObjectInputStream objStream = new ObjectInputStream(new FileInputStream(file))) {
+            while (true) {
                 Object obj = objStream.readObject();
                 if (obj instanceof User) {
                     User user = (User) obj;
-                    if (user.getID() == ID) {
+                    if(user.getID() == ID){
                         return user;
                     }
+                   
                 }
-
             }
-            input.close();
-            objStream.close();
+        } catch (EOFException e) {
+            //
         } catch (Exception e) {
             e.getStackTrace();
         }
@@ -53,20 +49,18 @@ public class Database {
     }
 
     public ArrayList<Team> getTeams() {
-        ArrayList<Team> teams = new ArrayList<Team>();
-        try {
-            FileInputStream input = new FileInputStream(file);
-            ObjectInputStream objStream = new ObjectInputStream(input);
-            while (objStream.available() > 0) {
+        ArrayList<Team> teams = new ArrayList<>();
+
+        try (ObjectInputStream objStream = new ObjectInputStream(new FileInputStream(file))) {
+            while (true) {
                 Object obj = objStream.readObject();
                 if (obj instanceof Team) {
                     Team team = (Team) obj;
                     teams.add(team);
                 }
-
             }
-            input.close();
-            objStream.close();
+        } catch (EOFException e) {
+            //
         } catch (Exception e) {
             e.getStackTrace();
         }

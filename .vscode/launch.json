@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "tset",
+            "request": "launch",
+            "mainClass": "tset",
+            "projectName": "phase3_2bc6ba89"
+        },
+        {
+            "type": "java",
             "name": "bb",
             "request": "launch",
             "mainClass": "bb",

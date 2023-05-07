@@ -13,7 +13,7 @@ public class HomeController {
 
     @FXML
     void AddScoresClicked(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Matches.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("AddScoreConroller.fxml"));
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

@@ -43,7 +43,7 @@ try {
     }
 
     public static void write(){
-      database.write(getTournaments(), getTeams(), getUsers());
+      database.write(tournaments, teams, users);
       tournaments = database.getTournaments();
       users = database.getUsers();
       teams = database.getTeams();
@@ -57,5 +57,6 @@ try {
     public static ArrayList<Team> getTeams(){
       return teams;
     }
+    
 }
 

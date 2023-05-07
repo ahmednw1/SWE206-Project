@@ -27,7 +27,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class EnrollmentController implements Initializable {
-    static Tournament selectedTournament;
+    static int selectedTournament;
     ArrayList<String> names = new ArrayList<>();
     User user = App.database.getCurrentUser();
     ArrayList<Team> teams = App.database.getTeams();
@@ -52,7 +52,7 @@ public class EnrollmentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         VBox vBox = new VBox();
-        for (int i = 1; i < selectedTournament.getTeamNumber(); i++) {
+        for (int i = 1; i < App.getTournaments().get(selectedTournament).getTeamNumber(); i++) {
             AnchorPane anchorPane = new AnchorPane();
 
             Pane card = new Pane();
@@ -98,7 +98,7 @@ public class EnrollmentController implements Initializable {
     @FXML
     void enrollClicked(ActionEvent event) throws IOException {
         boolean failed = false;
-        for (int i = 0; i < selectedTournament.getTeamNumber() - 1; i++) {
+        for (int i = 0; i < App.getTournaments().get(selectedTournament).getTeamNumber() - 1; i++) {
             try {
                 String info = authentiacate(ids.get(i).getText());
                 if (info != null) {
@@ -130,21 +130,22 @@ public class EnrollmentController implements Initializable {
             }
         }
 
-        if (team.size() + 1 == selectedTournament.getTeamNumber() && !failed) {
-            Team newTeam = new Team(selectedTournament.getName() + " "
-                    + ((Integer) (selectedTournament.getParticipants().size() + 1)).toString());
+        if (team.size() + 1 == App.getTournaments().get(selectedTournament).getTeamNumber() && !failed) {
+            Team newTeam = new Team(App.getTournaments().get(selectedTournament).getName() + " "
+                    + ((Integer) (App.getTournaments().get(selectedTournament).getParticipants().size() + 1)).toString());
             newTeam.addMember((Student) user);
             ((Student) user).addTeam(newTeam);
-            for (int j = 0; j < selectedTournament.getTeamNumber() - 1; j++) {
+            for (int j = 0; j < App.getTournaments().get(selectedTournament).getTeamNumber() - 1; j++) {
                 newTeam.addMember(team.get(j));
                 team.get(j).addTeam(newTeam);
 
             }
-            selectedTournament.addParticipant(newTeam);
-            newTeam.tournamentEnroll(selectedTournament);
-
-            teams.add(newTeam);
+            newTeam.tournamentEnroll(App.getTournaments().get(selectedTournament));
+            App.getTeams().add(newTeam);
             App.write();
+
+
+            
 
             Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -155,7 +156,7 @@ public class EnrollmentController implements Initializable {
 
     }
 
-    public static void select(Tournament t) {
+    public static void select(int t) {
         selectedTournament = t;
     }
 

@@ -220,7 +220,7 @@ public class TournamentsController implements Initializable {
                 participantsLabel.setGraphic(participantsImage);
                 RadioButton enrollButton = new RadioButton("Enroll");
                 enrollButton.setPrefSize(95.0, 46.0);
-                Tournament t = tournaments.get(i);
+                int t = i;
                 enrollButton.setOnAction(event -> {
                     try {
                         EnrollmentController.select(t);

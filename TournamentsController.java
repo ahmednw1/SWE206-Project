@@ -131,7 +131,7 @@ public class TournamentsController implements Initializable {
                 endDateLabel.setAlignment(Pos.CENTER);
                 endDateLabel.setId("finishedEndDate");
 
-                Label participantsLabel = new Label(tournaments.get(i).numberString() );
+                Label participantsLabel = new Label(tournaments.get(i).numberString());
                 participantsLabel.setPrefSize(309.0, 52.0);
                 participantsLabel.setAlignment(Pos.CENTER_LEFT);
                 participantsLabel.setId("finishedParticipantsNumber");
@@ -150,6 +150,7 @@ public class TournamentsController implements Initializable {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
+
                 });
 
                 Line line = new Line(-24.577177047729492, 34.9288330078125, 380.7157287597656, 34.92866516113281);
@@ -167,7 +168,7 @@ public class TournamentsController implements Initializable {
 
                 anchorPane.getChildren().add(card);
                 vboxFinish.getChildren().add(anchorPane);
-            } else if (tournaments.get(i).getEndDate().isAfter(todya)) {
+            } else if (tournaments.get(i).getStartDate().isAfter(todya)) {
                 AnchorPane anchorPane = new AnchorPane();
                 anchorPane.setPrefSize(353.0, 100.0);
                 anchorPane.setTopAnchor(anchorPane, 0.0);
@@ -208,7 +209,7 @@ public class TournamentsController implements Initializable {
                 endDateLabel.setId("finishedEndDate");
 
                 Label participantsLabel = new Label(tournaments.get(i).numberString());
-                participantsLabel.setPrefSize(309.0, 52.0);
+                participantsLabel.setPrefSize(170.0, 52.0);
                 participantsLabel.setAlignment(Pos.CENTER_LEFT);
                 participantsLabel.setId("finishedParticipantsNumber");
 
@@ -226,15 +227,29 @@ public class TournamentsController implements Initializable {
                         enrollClicked(event);
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
-                        
+
                         e.printStackTrace();
                     }
+
+                    
                 });
+
+                RadioButton generateButton = new RadioButton("Generate");
+                    generateButton.setPrefSize(140.0, 46.0);
+                    generateButton.setOnAction(event2 -> {
+                        try {
+                            generateClicked(event2);
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+
+                    });
 
                 Line line = new Line(-24.577177047729492, 34.9288330078125, 380.7157287597656, 34.92866516113281);
 
                 card.getChildren().addAll(tournamentLabel, typeLabel, startDateLabel, untilLabel, endDateLabel,
-                        participantsLabel, enrollButton, line);
+                        participantsLabel, generateButton,enrollButton, line);
 
                 ColorAdjust effect = new ColorAdjust();
                 effect.setBrightness(-0.1);
@@ -286,7 +301,7 @@ public class TournamentsController implements Initializable {
                 endDateLabel.setAlignment(Pos.CENTER);
                 endDateLabel.setId("finishedEndDate");
 
-                Label participantsLabel = new Label( tournaments.get(i).numberString());
+                Label participantsLabel = new Label(tournaments.get(i).numberString());
                 participantsLabel.setPrefSize(309.0, 52.0);
                 participantsLabel.setAlignment(Pos.CENTER_LEFT);
                 participantsLabel.setId("finishedParticipantsNumber");
@@ -324,12 +339,10 @@ public class TournamentsController implements Initializable {
                 vboxCurrent.getChildren().add(anchorPane);
             }
         }
-        
+
         finishedScrollPane.setContent(vboxFinish);
         upcomingScrollPane.setContent(vboxFuture);
         ongoingScrollPane.setContent(vboxCurrent);
-        
-        
 
     }
 
@@ -387,6 +400,15 @@ public class TournamentsController implements Initializable {
 
     @FXML
     void watchClicked(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("WatchTournament.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void generateClicked(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("WatchTournament.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);

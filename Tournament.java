@@ -42,6 +42,9 @@ public class Tournament implements Serializable{
             this.participants.add(team);
         }
     }
+    public String getName() {
+        return name;
+    }
 
     public void addStartDate(LocalDate startDate) {
         this.startDate = startDate;

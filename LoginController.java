@@ -1,8 +1,10 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
 import org.json.JSONObject;
 import javafx.event.ActionEvent;
@@ -26,6 +28,7 @@ public class LoginController {
     @FXML
     private Label invalidMessage;
 
+    ArrayList<User> users = App.users;
     @FXML
     void LoginClicked(ActionEvent event) {
         String name = username.getText();
@@ -39,11 +42,15 @@ public class LoginController {
                     if (jsonObject.getString("type").equals("admin")) {
                         Admin admin = new Admin(jsonObject.getString("email"), Integer.parseInt(name),
                                 jsonObject.getString("name"), pass);
+                        users.add(admin);
+                        App.write();
                         App.database.setCurrentUser(admin);
 
                     } else {
                         Student student = new Student(jsonObject.getString("email"), Integer.parseInt(name),
                                 jsonObject.getString("name"), pass);
+                        users.add(student);
+                        App.write();
                         App.database.setCurrentUser(student);
 
                     }

@@ -16,6 +16,11 @@ public abstract class User implements Serializable {
         this.pass = pass;
     }
 
+    public User(String email, int ID, String name) {
+        this.email = email;
+        this.ID = ID;
+        this.name = name;
+    }
     // getters and setters
     public String getEmail() {
         return email;

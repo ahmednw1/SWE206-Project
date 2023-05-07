@@ -2,9 +2,15 @@ import java.util.ArrayList;
 
 public class Student extends User {
     private ArrayList<Team> teams = new ArrayList<>();
-    
+
     public Student(String email, int ID, String name, String pass) {
         super(email, ID, name, pass);
+        super.access = false;
+        teams = new ArrayList<>();
+    }
+
+    public Student(String email, int ID, String name) {
+        super(email, ID, name);
         super.access = false;
         teams = new ArrayList<>();
     }

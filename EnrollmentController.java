@@ -28,7 +28,11 @@ import javafx.stage.Stage;
 
 public class EnrollmentController implements Initializable {
     static Tournament selectedTournament;
-    static ArrayList<String> names = new ArrayList<>();
+    ArrayList<String> names = new ArrayList<>();
+    User user = App.database.getCurrentUser();
+    ArrayList<User> users = App.users;
+
+    ArrayList<Student> team = new ArrayList<>();
     @FXML
     private FlowPane card;
 
@@ -40,6 +44,8 @@ public class EnrollmentController implements Initializable {
 
     @FXML
     private ScrollPane scrollPane;
+
+    ArrayList<TextField> ids = new ArrayList<TextField>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -69,20 +75,11 @@ public class EnrollmentController implements Initializable {
 
             card.getChildren().addAll(nameLabel, nameField);
 
+            ids.add(nameField);
             anchorPane.getChildren().add(card);
             vBox.getChildren().add(anchorPane);
             nameField.setId("name" + i);
-
-            try {
-                String info = authentiacate(nameField.getText());
-                scrollPane.setContent(vBox);
-                if (info != null) {
-                    User user = App.database.getUser(Integer.parseInt(nameField.getText()));
-                }
-            } catch (Exception e) {
-
-            }
-            // Set the fx:id for the name text field
+            scrollPane.setContent(vBox);
 
         }
     }
@@ -98,11 +95,61 @@ public class EnrollmentController implements Initializable {
 
     @FXML
     void enrollClicked(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        boolean failed = false;
+        for (int i = 0; i < selectedTournament.getTeamNumber() - 1; i++) {
+            try {
+                String info = authentiacate(ids.get(i).getText());
+                if (info != null) {
+                    User user = App.database.getUser(Integer.parseInt(ids.get(i).getText()));
+                    if (user == null) {
+                        JSONObject jsonObject = new JSONObject(info);
+                        if (jsonObject.getString("type").equals("admin")) {
+                            throw new Exception();
+
+                        } else {
+                            Student student = new Student(jsonObject.getString("email"),
+                                    Integer.parseInt(ids.get(i).getText()),
+                                    jsonObject.getString("name"));
+                            users.add(student);
+                            App.write();
+                            team.add((Student) student);
+                        }
+
+                    } else {
+                        if (user instanceof Admin) {
+                            throw new Exception();
+                        }
+                        team.add((Student) user);
+                    }
+                }
+            } catch (Exception e) {
+                failed = true;
+                System.out.println(e);
+            }
+        }
+
+        if (team.size() + 1 == selectedTournament.getTeamNumber() && !failed) {
+            Team newTeam = new Team(selectedTournament.getName() + " "
+                    + ((Integer) (selectedTournament.getParticipants().size() + 1)).toString());
+            newTeam.addMember((Student) user);
+            ((Student) user).addTeam(newTeam);
+            for (int j = 0; j < selectedTournament.getTeamNumber() - 1; j++) {
+                newTeam.addMember(team.get(j));
+                team.get(j).addTeam(newTeam);
+
+            }
+            selectedTournament.addParticipant(newTeam);
+            newTeam.tournamentEnroll(selectedTournament);
+
+            App.write();
+
+            Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+
     }
 
     public static void select(Tournament t) {

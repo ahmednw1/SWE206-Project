@@ -30,6 +30,8 @@ public class EnrollmentController implements Initializable {
     static Tournament selectedTournament;
     ArrayList<String> names = new ArrayList<>();
     User user = App.database.getCurrentUser();
+    ArrayList<Team> teams = App.database.getTeams();
+
     ArrayList<User> users = App.users;
 
     ArrayList<Student> team = new ArrayList<>();
@@ -141,6 +143,7 @@ public class EnrollmentController implements Initializable {
             selectedTournament.addParticipant(newTeam);
             newTeam.tournamentEnroll(selectedTournament);
 
+            teams.add(newTeam);
             App.write();
 
             Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));

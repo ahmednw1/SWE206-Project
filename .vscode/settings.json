@@ -2,6 +2,8 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "/Users/osama/Developer/javafx-sdk-20.0.1/lib/**/*.jar",
-        "/Users/osama/Downloads/json-20180813.jar"
+        "/Users/osama/Downloads/json-20180813.jar",
+        "/Users/waleedalzahrani/Downloads/javafx-sdk-20.0.1/lib/**/*.jar",
+        "/Users/waleedalzahrani/Downloads/json-20180813.jar"
     ]
 }

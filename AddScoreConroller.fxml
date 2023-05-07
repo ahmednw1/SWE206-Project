@@ -26,7 +26,7 @@
             <Image url="@home_icon.png" />
          </image>
       </ImageView>
-      <ScrollPane fx:id="LO" layoutX="64.0" layoutY="109.0" prefHeight="382.0" prefWidth="372.0">
+      <ScrollPane fx:id="scrollPane" layoutX="64.0" layoutY="109.0" prefHeight="382.0" prefWidth="372.0">
         
       </ScrollPane>
       <ButtonBar layoutX="7.0" layoutY="537.0" prefHeight="60.0" prefWidth="480.0">

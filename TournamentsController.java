@@ -238,6 +238,7 @@ public class TournamentsController implements Initializable {
                     generateButton.setPrefSize(140.0, 46.0);
                     generateButton.setOnAction(event2 -> {
                         try {
+                            watchTournamentController.select(t);
                             generateClicked(event2);
                         } catch (IOException e) {
                             // TODO Auto-generated catch block

@@ -24,7 +24,7 @@ public class Match implements Serializable{
     }
 
     public LocalDate getDate(){
-        return date;
+        return this.date;
     }
 
     public void setdate(LocalDate date){

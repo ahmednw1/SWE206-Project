@@ -96,7 +96,7 @@ public class Tournament implements Serializable{
         
         int j = 1, i = 0;
         for (i = 0; i < matchesBeforeElimination; i++) {
-            purification[j - 1][i] = matches.get(i).getWinner();
+            purification[j - 1][i / 2] = matches.get(i).getWinner();
         }
         
         i = i * 2;
@@ -104,7 +104,9 @@ public class Tournament implements Serializable{
             purification[j - 1][i - matchesBeforeElimination] = participants.get(i);
         }
         
-        while (j <= numOfRounds) {
+        // Only generate matches for the first round
+        int numRoundsToGenerate = 1;
+        while (j <= numRoundsToGenerate) {
             i = 0;
             matchDate = matchDate.plusDays(1 + eachStageDays);
             while (i < purification[j - 1].length) {
@@ -114,6 +116,10 @@ public class Tournament implements Serializable{
             j++;
         }
     }
+    
+    
+    
+    
 
     public void roundRobin() {
         int numTeams = participants.size();
@@ -126,24 +132,21 @@ public class Tournament implements Serializable{
         List<Team> homeTeams = new ArrayList<>();
         List<Team> awayTeams = new ArrayList<>();
     
-        // Generate matches for each round-robin stage
-        for (int stage = 0; stage < numTeams - 1; stage++) {
+        LocalDate matchDate = startDate;
+        int numStagesToGenerate = 1;
+        for (int stage = 0; stage < numStagesToGenerate; stage++) {
             for (int i = 0; i < numTeams / 2; i++) {
                 int j = numTeams - 1 - i;
                 homeTeams.add(participants.get(i));
                 awayTeams.add(participants.get(j));
+                matches.add(new Match(homeTeams.get(i), awayTeams.get(i), matchDate));
+                matchDate = matchDate.plusDays(eachStageDays);
             }
             Collections.rotate(participants.subList(1, participants.size()), 1); // rotate the teams for the next round
         }
-    
-        // Create matches for each home/away team combination
-        for (int i = 0; i < homeTeams.size(); i++) {
-            Match match = new Match(homeTeams.get(i), awayTeams.get(i));
-            matches.add(match);
-        }
-
-
     }
+    
+    
     
     
 

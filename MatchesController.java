@@ -85,14 +85,14 @@ public class MatchesController implements Initializable {
                     line.setStrokeWidth(1.0);
                     line.setStroke(Color.BLACK);
 
-                    Label team1 = new Label(match.getTeam1().getName());
+                    Label team1 = new Label(match.getTeam1());
                     team1.setPrefSize(144.0, 29.0);
                     team1.setAlignment(Pos.CENTER);
                     team1.setFont(new Font(24.0));
 
                     Label vs = new Label("vs");
 
-                    Label team2 = new Label(match.getTeam2().getName());
+                    Label team2 = new Label(match.getTeam2());
                     team2.setPrefSize(151.0, 29.0);
                     team2.setAlignment(Pos.CENTER);
                     team2.setFont(new Font(24.0));

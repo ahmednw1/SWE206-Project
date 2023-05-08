@@ -114,6 +114,36 @@ public class Tournament implements Serializable{
             j++;
         }
     }
+
+    public void roundRobin() {
+        int numTeams = participants.size();
+        if (numTeams % 2 != 0) {
+            Team byeTeam = new Team("BYE"); // create a bye team if the number of teams is odd
+            participants.add(byeTeam);
+            numTeams++;
+        }
+    
+        List<Team> homeTeams = new ArrayList<>();
+        List<Team> awayTeams = new ArrayList<>();
+    
+        // Generate matches for each round-robin stage
+        for (int stage = 0; stage < numTeams - 1; stage++) {
+            for (int i = 0; i < numTeams / 2; i++) {
+                int j = numTeams - 1 - i;
+                homeTeams.add(participants.get(i));
+                awayTeams.add(participants.get(j));
+            }
+            Collections.rotate(participants.subList(1, participants.size()), 1); // rotate the teams for the next round
+        }
+    
+        // Create matches for each home/away team combination
+        for (int i = 0; i < homeTeams.size(); i++) {
+            Match match = new Match(homeTeams.get(i), awayTeams.get(i));
+            matches.add(match);
+        }
+
+
+    }
     
     
 
@@ -180,35 +210,7 @@ public class Tournament implements Serializable{
         this.tournamentType = tournamentType;
     }
 
-    public void roundRobin() {
-        int numTeams = participants.size();
-        if (numTeams % 2 != 0) {
-            Team byeTeam = new Team("BYE"); // create a bye team if the number of teams is odd
-            participants.add(byeTeam);
-            numTeams++;
-        }
     
-        List<Team> homeTeams = new ArrayList<>();
-        List<Team> awayTeams = new ArrayList<>();
-    
-        // Generate matches for each round-robin stage
-        for (int stage = 0; stage < numTeams - 1; stage++) {
-            for (int i = 0; i < numTeams / 2; i++) {
-                int j = numTeams - 1 - i;
-                homeTeams.add(participants.get(i));
-                awayTeams.add(participants.get(j));
-            }
-            Collections.rotate(participants.subList(1, participants.size()), 1); // rotate the teams for the next round
-        }
-    
-        // Create matches for each home/away team combination
-        for (int i = 0; i < homeTeams.size(); i++) {
-            Match match = new Match(homeTeams.get(i), awayTeams.get(i));
-            matches.add(match);
-        }
-
-
-    }
     public String tString(){
         return name;
     }

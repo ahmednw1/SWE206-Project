@@ -10,6 +10,7 @@ public class Match implements Serializable{
     private Team team2;
     private int team1score;
     private int team2score;
+    private boolean isEdited=false;
 
     public Match(Team team1, Team team2){
        this.team1 = team1;
@@ -46,6 +47,7 @@ public class Match implements Serializable{
         this.team2score = team2Score;
         //if getType = round robin
         recordPoints();
+        isEdited=true;
     }
 
     public void editresult(int team1Score, int team2Score){
@@ -57,6 +59,7 @@ public class Match implements Serializable{
         if(winner1 != winner2){
             editPoints();
         }
+        isEdited=true;
     }
 
     public void recordPoints(){
@@ -100,12 +103,21 @@ public class Match implements Serializable{
         }
     }
 
-    public Team getTeam1(){
-        return team1;
+    public String getTeam1(){
+        if(team1 == null){
+            return "---";
+        }else{
+            return team1.toString();
+        }
+        
     }
 
-    public Team getTeam2(){
-        return team2;
+    public String getTeam2(){
+        if(team2 == null){
+            return "---";
+        }else{
+            return team2.toString();
+        }
     }
 
    

@@ -2,22 +2,26 @@ import java.io.Serializable;
 
 public abstract class User implements Serializable {
     private String email;
-    private int ID;
+    private String ID;
     private String name;
     private String pass;
 
     protected boolean access;
 
     // constructor
-    public User(String email, int ID, String name, String pass) {
+    public User(String email, String ID, String name, String pass) {
         this.email = email;
         this.ID = ID;
         this.name = name;
         this.pass = pass;
     }
 
-    public User(String email, int ID, String name) {
+    public User(String email, String ID, String name) {
         this.email = email;
+        this.ID = ID;
+        this.name = name;
+    }
+    public User(String ID, String name) {
         this.ID = ID;
         this.name = name;
     }
@@ -31,11 +35,11 @@ public abstract class User implements Serializable {
         this.email = email;
     }
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 

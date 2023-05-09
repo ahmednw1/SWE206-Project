@@ -36,18 +36,17 @@ public class LoginController {
         try {
             String info = authentiacate(name, pass);
             if (info != null) {
-                User user = App.database.getUser(Integer.parseInt(name));
+                User user = App.database.getUser(name);
                 if (user == null) {
                     JSONObject jsonObject = new JSONObject(info);
                     if (jsonObject.getString("type").equals("admin")) {
-                        Admin admin = new Admin(jsonObject.getString("email"), Integer.parseInt(name),
-                                jsonObject.getString("name"), pass);
+                        Admin admin = new Admin(name,pass);
                         users.add(admin);
                         App.write();
                         App.database.setCurrentUser(admin);
 
                     } else {
-                        Student student = new Student(jsonObject.getString("email"), Integer.parseInt(name),
+                        Student student = new Student(jsonObject.getString("email"), name,
                                 jsonObject.getString("name"), pass);
                         users.add(student);
                         App.write();

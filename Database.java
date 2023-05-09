@@ -28,13 +28,13 @@ public class Database {
         return users;
     }
 
-    public User getUser(int ID) {
+    public User getUser(String ID) {
         try (ObjectInputStream objStream = new ObjectInputStream(new FileInputStream(file))) {
             while (true) {
                 Object obj = objStream.readObject();
                 if (obj instanceof User) {
                     User user = (User) obj;
-                    if(user.getID() == ID){
+                    if(user.getID().equals(ID)){
                         return user;
                     }
                    

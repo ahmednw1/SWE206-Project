@@ -321,8 +321,10 @@ public class TournamentsController implements Initializable {
                 participantsLabel.setGraphic(participantsImage);
                 RadioButton watchButton = new RadioButton("Watch");
                 watchButton.setPrefSize(95.0, 46.0);
+                int t = i;
                 watchButton.setOnAction(event -> {
                     try {
+                        watchTournamentController.select(t);
                         watchClicked(event);
                     } catch (IOException e) {
                         // TODO Auto-generated catch block

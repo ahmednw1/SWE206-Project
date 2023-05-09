@@ -56,8 +56,9 @@ public class AddScoreConroller implements Initializable {
     @FXML
     void DateClicked(ActionEvent event) {
 
-        VBox vbox = new VBox(); // create a new VBox to hold the AnchorPanes
+        VBox vbox = new VBox(); 
         ArrayList<Tournament> tournaments = App.database.getTournaments();
+        System.out.println(tournaments.get(0).getMatches());
         for (int i = 0; i < tournaments.size(); i++) {
             ArrayList<Match> matches = tournaments.get(i).getMatches();
             for (int j = 0; j < matches.size(); j++) {

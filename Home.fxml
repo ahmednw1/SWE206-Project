@@ -72,5 +72,6 @@
          </buttons>
       </ButtonBar>
       <Label fx:id="invalidMessage" layoutX="117.0" layoutY="464.0" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutClicked" text="Logout" />
    </children>
 </AnchorPane>

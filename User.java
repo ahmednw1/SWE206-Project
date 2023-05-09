@@ -59,4 +59,6 @@ public abstract class User implements Serializable {
         this.pass = pass;
     }
 
+    
+
 }

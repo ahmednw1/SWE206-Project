@@ -76,4 +76,14 @@ public class HomeController {
         stage.show();
     }
 
+    @FXML
+    void logoutClicked(ActionEvent event) throws IOException {
+        App.database.logout();
+        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }

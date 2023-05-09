@@ -102,7 +102,7 @@ public class EnrollmentController implements Initializable {
             try {
                 String info = authentiacate(ids.get(i).getText());
                 if (info != null) {
-                    User user = App.database.getUser(Integer.parseInt(ids.get(i).getText()));
+                    User user = App.database.getUser(ids.get(i).getText());
                     if (user == null) {
                         JSONObject jsonObject = new JSONObject(info);
                         if (jsonObject.getString("type").equals("admin")) {
@@ -110,7 +110,7 @@ public class EnrollmentController implements Initializable {
 
                         } else {
                             Student student = new Student(jsonObject.getString("email"),
-                                    Integer.parseInt(ids.get(i).getText()),
+                                    ids.get(i).getText(),
                                     jsonObject.getString("name"));
                             users.add(student);
                             App.write();

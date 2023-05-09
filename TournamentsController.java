@@ -29,6 +29,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class TournamentsController implements Initializable {
+    @FXML
+    private Label invalidMessage;
 
     @FXML
     private Label finishedEndDate;
@@ -168,7 +170,7 @@ public class TournamentsController implements Initializable {
 
                 anchorPane.getChildren().add(card);
                 vboxFinish.getChildren().add(anchorPane);
-            } else if (tournaments.get(i).getStartDate().isAfter(todya)) {
+            } else if (tournaments.get(i).getStartDate().isAfter(todya) && tournaments.get(i).getRegistrationStatus()) {
                 AnchorPane anchorPane = new AnchorPane();
                 anchorPane.setPrefSize(353.0, 100.0);
                 anchorPane.setTopAnchor(anchorPane, 0.0);
@@ -238,8 +240,13 @@ public class TournamentsController implements Initializable {
                     generateButton.setPrefSize(140.0, 46.0);
                     generateButton.setOnAction(event2 -> {
                         try {
-                            watchTournamentController.select(t);
-                            generateClicked(event2);
+                            if(App.database.getCurrentUser() instanceof Admin){
+                                watchTournamentController.select(t);
+                                generateClicked(event2);
+                            }else{
+                                invalidMessage.setText("Sorry, You Must Be an Admin to Generate Matches !");   
+                            }
+                            
                         } catch (IOException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();

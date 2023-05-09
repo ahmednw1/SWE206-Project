@@ -201,6 +201,10 @@ public class Tournament implements Serializable{
         this.registerationOpen = true;
     }
 
+    public boolean getRegistrationStatus() {
+        return this.registerationOpen;
+    }
+
     public void selectParticipationType(String participationType) {
         this.tournamentType = participationType;
     }

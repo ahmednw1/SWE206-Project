@@ -71,5 +71,6 @@
             </Button>
          </buttons>
       </ButtonBar>
+      <Label fx:id="invalidMessage" layoutX="117.0" layoutY="464.0" />
    </children>
 </AnchorPane>

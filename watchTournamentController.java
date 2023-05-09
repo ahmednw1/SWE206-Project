@@ -104,6 +104,7 @@ public class watchTournamentController implements Initializable {
         VBox vbox = new VBox();
         ArrayList<Match> matches = App.getTournaments().get(tournament).getMatches();
         System.out.println(matches);
+        App.getTournaments().get(tournament).closeRegistration();
         Label tournamentLabel = new Label(App.getTournaments().get(tournament).tString());
         tournamentLabel.setPrefSize(317.0, 34.0);
         tournamentLabel.setAlignment(Pos.CENTER);

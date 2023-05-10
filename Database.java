@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Database {
     private String file;
-    private User currentUser;
+    static User currentUser;
 
     public Database() {
         file = "Data.exe";
@@ -33,9 +33,8 @@ public class Database {
             while (true) {
                 Object obj = objStream.readObject();
                 if (obj instanceof User) {
-                    User user = (User) obj;
-                    if(user.getID().equals(ID)){
-                        return user;
+                    if(((User) obj).getID().equals(ID)){
+                        return ((User) obj);
                     }
                    
                 }
@@ -45,6 +44,7 @@ public class Database {
         } catch (Exception e) {
             e.getStackTrace();
         }
+        System.out.println("j");
         return null;
     }
 

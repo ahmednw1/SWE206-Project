@@ -41,15 +41,14 @@ public class ProfileController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        User user = App.database.getCurrentUser();
-        name.setText(user.getName());
-        if(user instanceof Admin){
+        System.out.println(App.database.getCurrentUser());
+        name.setText(App.database.getCurrentUser().getName());
+        if(App.database.getCurrentUser() instanceof Admin){
             type.setText("Admin");
         }
         else{
             type.setText("Student");
 
-            Student student = (Student) user;
             Tournaments.setCellValueFactory(
             new PropertyValueFactory<>("tournamnet"));
 
@@ -58,13 +57,13 @@ public class ProfileController implements Initializable {
         
 
             ObservableList<TabelProfile> list = FXCollections.observableArrayList();
-            for(int i=0; i<student.getTeams().size();i++ ){
-                list.add(new TabelProfile(student.getTeams().get(i).toString(), student.getTeams().get(i).getTournament().tString()));
+            for(int i=0; i<((Student) App.database.getCurrentUser()).getTeams().size();i++ ){
+                list.add(new TabelProfile(((Student) App.database.getCurrentUser()).getTeams().get(i).toString(), ((Student) App.database.getCurrentUser()).getTeams().get(i).getTournament().tString()));
             }
             tableView.setItems(list);
                                             
         }
-        email.setText(user.getEmail());  
+        email.setText(App.database.getCurrentUser().getEmail());  
 
         
 

@@ -2,12 +2,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import org.json.JSONObject;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,12 +28,8 @@ import javafx.stage.Stage;
 public class EnrollmentController implements Initializable {
     static int selectedTournament;
     ArrayList<String> names = new ArrayList<>();
-    User user = App.database.getCurrentUser();
-    ArrayList<Team> teams = App.database.getTeams();
-
-    ArrayList<User> users = App.users;
-
     ArrayList<Student> team = new ArrayList<>();
+
     @FXML
     private FlowPane card;
 
@@ -102,26 +97,30 @@ public class EnrollmentController implements Initializable {
             try {
                 String info = authentiacate(ids.get(i).getText());
                 if (info != null) {
-                    User user = App.database.getUser(ids.get(i).getText());
+
+                    Student user = (Student) (App.database.getUser(ids.get(i).getText()));
                     if (user == null) {
                         JSONObject jsonObject = new JSONObject(info);
                         if (jsonObject.getString("type").equals("admin")) {
-                            throw new Exception();
+                            // Admin not allowed
 
                         } else {
                             Student student = new Student(jsonObject.getString("email"),
                                     ids.get(i).getText(),
                                     jsonObject.getString("name"));
-                            users.add(student);
+                            App.getUsers().add(student);
                             App.write();
-                            team.add((Student) student);
+                            team.add(student);
                         }
 
                     } else {
-                        if (user instanceof Admin) {
-                            throw new Exception();
+                        int pos = 0;
+                        for (int k = 0; k < App.getUsers().size(); k++) {
+                            if ((App.getUsers().get(i).getID()).equals(ids.get(i))) {
+                                pos = k;
+                            }
                         }
-                        team.add((Student) user);
+                        team.add((Student) App.getUsers().get(pos));
                     }
                 }
             } catch (Exception e) {
@@ -133,11 +132,14 @@ public class EnrollmentController implements Initializable {
         if (team.size() + 1 == App.getTournaments().get(selectedTournament).getTeamNumber() && !failed) {
             Team newTeam = new Team(App.getTournaments().get(selectedTournament).getName() + " "
                     + ((Integer) (App.getTournaments().get(selectedTournament).getParticipants().size() + 1)).toString());
-            newTeam.addMember((Student) user);
-            ((Student) user).addTeam(newTeam);
+            newTeam.addMember((Student) App.database.getCurrentUser());
+            ((Student) App.database.getCurrentUser()).addTeam(newTeam);
+            App.write();
+            System.out.println(((Student) App.database.getCurrentUser()).getTeams());
             for (int j = 0; j < App.getTournaments().get(selectedTournament).getTeamNumber() - 1; j++) {
                 newTeam.addMember(team.get(j));
                 team.get(j).addTeam(newTeam);
+                App.write();
 
             }
             newTeam.tournamentEnroll(App.getTournaments().get(selectedTournament));
@@ -146,7 +148,7 @@ public class EnrollmentController implements Initializable {
 
 
             
-
+            
             Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);

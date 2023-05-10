@@ -29,6 +29,7 @@ public class LoginController {
     private Label invalidMessage;
 
     ArrayList<User> users = App.users;
+
     @FXML
     void LoginClicked(ActionEvent event) {
         String name = username.getText();
@@ -40,7 +41,7 @@ public class LoginController {
                 if (user == null) {
                     JSONObject jsonObject = new JSONObject(info);
                     if (jsonObject.getString("type").equals("admin")) {
-                        Admin admin = new Admin(name,pass);
+                        Admin admin = new Admin(name, pass);
                         users.add(admin);
                         App.write();
                         App.database.setCurrentUser(admin);
@@ -55,8 +56,16 @@ public class LoginController {
                     }
 
                 } else {
-                    App.database.setCurrentUser(user);
-
+                    System.out.println(App.getUsers());
+                    int pos = 0;
+                    for (int i = 0; i < App.getUsers().size(); i++) {
+                        if ((App.getUsers().get(i).getID()).equals(name)) {
+                            System.out.println(App.getUsers().get(i));
+                            pos = i;
+                        }
+                    }
+                    App.database.setCurrentUser(App.getUsers().get(pos));
+                    System.out.println(App.database.getCurrentUser());
                 }
 
                 Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));

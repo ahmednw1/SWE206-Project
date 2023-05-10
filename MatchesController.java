@@ -55,6 +55,12 @@ public class MatchesController implements Initializable {
     @FXML
     private ScrollPane LO;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        dateChosen.setValue(LocalDate.now());
+        DateClicked(new ActionEvent());
+
+    }
     @FXML
     void DateClicked(ActionEvent event) {
 
@@ -63,7 +69,9 @@ public class MatchesController implements Initializable {
         for (int i = 0; i < tournaments.size(); i++) {
             ArrayList<Match> matches = tournaments.get(i).getMatches();
             for (int j = 0; j < matches.size(); j++) {
-                if (matches.get(j).getDate().equals(dateChosen)) {
+
+                if (matches.get(j).getDate().compareTo(dateChosen.getValue()) == 0) {
+                    System.out.println("in");
                     Match match = matches.get(j);
                     AnchorPane anchorPane = new AnchorPane();
                     anchorPane.setPrefSize(353.0, 100.0);
@@ -97,13 +105,13 @@ public class MatchesController implements Initializable {
                     team2.setAlignment(Pos.CENTER);
                     team2.setFont(new Font(24.0));
 
-                    Label goals1 = new Label(match.getScore().get(0).toString(i));
+                    Label goals1 = new Label(match.getScore().get(0).toString());
                     goals1.setPrefSize(143.0, 38.0);
                     goals1.setAlignment(Pos.CENTER);
 
                     Label vs2 = new Label("vs");
 
-                    Label goals2 = new Label(match.getScore().get(1).toString(i));
+                    Label goals2 = new Label(match.getScore().get(1).toString());
                     goals2.setPrefSize(141.0, 38.0);
                     goals2.setAlignment(Pos.CENTER);
 
@@ -111,7 +119,7 @@ public class MatchesController implements Initializable {
                     tournament.setPrefSize(317.0, 34.0);
                     tournament.setAlignment(Pos.CENTER);
 
-                    Label date = new Label(dateChosen.toString());
+                    Label date = new Label(dateChosen.getValue().toString());
                     date.setPrefSize(317.0, 34.0);
                     date.setAlignment(Pos.CENTER);
 
@@ -160,11 +168,6 @@ public class MatchesController implements Initializable {
         stage.show();
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        dateChosen.setValue(LocalDate.now());
-        DateClicked(null);
-
-    }
+    
 
 }

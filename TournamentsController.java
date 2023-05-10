@@ -225,39 +225,45 @@ public class TournamentsController implements Initializable {
                 int t = i;
                 enrollButton.setOnAction(event -> {
                     try {
-                        EnrollmentController.select(t);
-                        enrollClicked(event);
+                        if (App.database.getCurrentUser() instanceof Student) {
+                            EnrollmentController.select(t);
+                            enrollClicked(event);
+                        } else {
+                            invalidMessage.setText("          Sorry, You Must Be a Student to Enroll !");
+
+                        }
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
 
                         e.printStackTrace();
                     }
 
-                    
                 });
 
                 RadioButton generateButton = new RadioButton("Generate");
-                    generateButton.setPrefSize(140.0, 46.0);
-                    generateButton.setOnAction(event2 -> {
-                        try {
-                            if(App.database.getCurrentUser() instanceof Admin){
-                                watchTournamentController.select(t);
-                                generateClicked(event2);
-                            }else{
-                                invalidMessage.setText("Sorry, You Must Be an Admin to Generate Matches !");   
-                            }
-                            
-                        } catch (IOException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
+                generateButton.setPrefSize(140.0, 46.0);
+                generateButton.setOnAction(event2 -> {
+                    try {
+                        if (!(App.database.getCurrentUser() instanceof Admin)) {
+                            invalidMessage.setText("Sorry, You Must Be an Admin to Generate Matches !");
+                        } else if (tournaments.get(t).getParticipants().size() == 0) {
+                            invalidMessage.setText("               Sorry, There Are No Participants !");
+                        } else {
+                            watchTournamentController.select(t);
+                            generateClicked(event2);
                         }
 
-                    });
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                });
 
                 Line line = new Line(-24.577177047729492, 34.9288330078125, 380.7157287597656, 34.92866516113281);
 
                 card.getChildren().addAll(tournamentLabel, typeLabel, startDateLabel, untilLabel, endDateLabel,
-                        participantsLabel, generateButton,enrollButton, line);
+                        participantsLabel, generateButton, enrollButton, line);
 
                 ColorAdjust effect = new ColorAdjust();
                 effect.setBrightness(-0.1);
@@ -321,8 +327,10 @@ public class TournamentsController implements Initializable {
                 participantsLabel.setGraphic(participantsImage);
                 RadioButton watchButton = new RadioButton("Watch");
                 watchButton.setPrefSize(95.0, 46.0);
+                int t = i;
                 watchButton.setOnAction(event -> {
                     try {
+                        watchTournamentController.select(t);
                         watchClicked(event);
                     } catch (IOException e) {
                         // TODO Auto-generated catch block

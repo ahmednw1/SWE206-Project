@@ -25,7 +25,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+
+
 public class EnrollmentController implements Initializable {
+
+    @FXML
+    private TextField teamName;
+
+    @FXML
+    private Label invalidMessage;
+
     static int selectedTournament;
     ArrayList<String> names = new ArrayList<>();
     ArrayList<Student> team = new ArrayList<>();
@@ -46,6 +55,7 @@ public class EnrollmentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         VBox vBox = new VBox();
         for (int i = 1; i < App.getTournaments().get(selectedTournament).getTeamNumber(); i++) {
             AnchorPane anchorPane = new AnchorPane();
@@ -79,6 +89,9 @@ public class EnrollmentController implements Initializable {
             scrollPane.setContent(vBox);
 
         }
+
+        
+
     }
 
     @FXML

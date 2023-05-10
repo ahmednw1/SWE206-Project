@@ -119,4 +119,8 @@ public class Database {
         return currentUser;
     }
 
+    public void logout() {
+         this.currentUser = null;
+    }
+
 }

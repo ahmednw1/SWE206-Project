@@ -28,7 +28,7 @@ import java.time.LocalDate;
 public class AddTournament implements Initializable {
 
     @FXML
-    private ComboBox<Sport> sport;
+    private TextField sport;
 
     @FXML
     private Label invalidMessage;
@@ -56,12 +56,12 @@ public class AddTournament implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Sport football = new Sport("Football");
-        Sport swimming = new Sport("Swimming");
-        Sport vollyball = new Sport("Vollyball");
-        ObservableList<Sport> sportList = FXCollections.observableArrayList(football, vollyball, swimming);
+        // Sport football = new Sport("Football");
+        // Sport swimming = new Sport("Swimming");
+        // Sport vollyball = new Sport("Vollyball");
+        // ObservableList<Sport> sportList = FXCollections.observableArrayList(football, vollyball, swimming);
         ObservableList<String> typeList = FXCollections.observableArrayList("Elimination", "Round Robin");
-        sport.setItems(sportList);
+        //sport.setItems(sportList);
         type.setItems(typeList);
     }
 
@@ -77,7 +77,7 @@ public class AddTournament implements Initializable {
 
     @FXML
     void addClicked(ActionEvent event) throws IOException {
-        if (name.getText() == null || sport.getValue() == null || type.getValue() == null
+        if (name.getText() == null || sport.getText() == null || type.getValue() == null
                 || teamsNumber.getText() == null || teamMembers.getText() == null
                 || startDate.getValue() == null || endDate.getValue() == null) {
             invalidMessage.setText("Missing Input, please try again");
@@ -86,7 +86,7 @@ public class AddTournament implements Initializable {
         } else {
 
             String nameValue = name.getText();
-            Sport sportValue = sport.getValue();
+            Sport sportValue = new Sport(sport.getText());
             String typeValue = type.getValue();
             int teamsNumberValue = Integer.parseInt(teamsNumber.getText());
             int teamMembersValue = Integer.parseInt(teamMembers.getText());

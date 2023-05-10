@@ -224,6 +224,16 @@ public class Tournament implements Serializable{
     public String numberString(){
         return teamNumber + "";
     }
+    public boolean isIn(Student st){
+        for(int i=0;i<participants.size();i++){
+            for(int j=0;j<participants.get(i).getMembers().size();j++){
+                if(participants.get(i).getMembers().get(j).equals(st)){
+                    return true;
+                }
+            } 
+        }
+        return false;
+    }
     
     
 }

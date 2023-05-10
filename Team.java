@@ -23,7 +23,7 @@ public class Team implements Serializable {
         this.students.remove(student);
     }
 
-    public ArrayList<Student> getMembers(int index) {
+    public ArrayList<Student> getMembers() {
         return this.students;
     }
 

@@ -56,6 +56,7 @@ public class EnrollmentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+
         VBox vBox = new VBox();
         for (int i = 1; i < App.getTournaments().get(selectedTournament).getTeamNumber(); i++) {
             AnchorPane anchorPane = new AnchorPane();
@@ -106,7 +107,10 @@ public class EnrollmentController implements Initializable {
     @FXML
     void enrollClicked(ActionEvent event) throws IOException {
         boolean failed = false;
-        for (int i = 0; i < App.getTournaments().get(selectedTournament).getTeamNumber() - 1; i++) {
+        if(App.getTournaments().get(selectedTournament).isIn((Student)App.database.getCurrentUser())){
+            failed = true;
+        }
+        for (int i = 0; i < App.getTournaments().get(selectedTournament).getTeamNumber() - 1 && !failed; i++) {
             try {
                 String info = authentiacate(ids.get(i).getText());
                 if (info != null) {
@@ -134,6 +138,9 @@ public class EnrollmentController implements Initializable {
                             }
                         }
                         team.add((Student) App.getUsers().get(pos));
+                        if(App.getTournaments().get(selectedTournament).isIn((Student) App.getUsers().get(pos))){
+                            failed = true;
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -167,6 +174,9 @@ public class EnrollmentController implements Initializable {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+        }
+        else if(failed){
+            // particpant is already register 
         }
 
     }

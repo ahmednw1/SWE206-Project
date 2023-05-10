@@ -226,10 +226,16 @@ public class TournamentsController implements Initializable {
                 enrollButton.setOnAction(event -> {
                     try {
                         if (App.database.getCurrentUser() instanceof Student) {
-                            EnrollmentController.select(t);
-                            enrollClicked(event);
+                            if(App.getTournaments().get(t).getTeamNumber() == App.getTournaments().get(t).getParticipants().size()){
+                                // The tournament reached the capacity
+                            }
+                            else{
+                                EnrollmentController.select(t);
+                                enrollClicked(event);
+                            }
+                            
                         } else {
-                            invalidMessage.setText("          Sorry, You Must Be a Student to Enroll !");
+                            invalidMessage.setText("Sorry, You Must Be a Student to Enroll !");
 
                         }
                     } catch (IOException e) {

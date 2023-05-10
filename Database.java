@@ -16,8 +16,7 @@ public class Database {
             while (true) {
                 Object obj = objStream.readObject();
                 if (obj instanceof User) {
-                    User user = (User) obj;
-                    users.add(user);
+                    users.add((User) obj);
                 }
             }
         } catch (EOFException e) {

@@ -56,11 +56,9 @@ public class LoginController {
                     }
 
                 } else {
-                    System.out.println(App.getUsers());
                     int pos = 0;
                     for (int i = 0; i < App.getUsers().size(); i++) {
                         if ((App.getUsers().get(i).getID()).equals(name)) {
-                            System.out.println(App.getUsers().get(i));
                             pos = i;
                         }
                     }

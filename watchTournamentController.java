@@ -1,8 +1,11 @@
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -41,13 +45,13 @@ public class watchTournamentController implements Initializable {
     private Label goals2;
 
     @FXML
-    private TableColumn<?, ?> points;
+    private TableColumn<watchprofile, Integer> points;
 
     @FXML
-    private TableColumn<?, ?> ranks;
+    private TableColumn<watchprofile, Integer> ranks;
 
     @FXML
-    private TableView<?> tableView;
+    private TableView<watchprofile> tableView;
 
     @FXML
     private Label team1;
@@ -56,7 +60,7 @@ public class watchTournamentController implements Initializable {
     private Label team2;
 
     @FXML
-    private TableColumn<?, ?> teams;
+    private TableColumn<watchprofile, String> teams;
 
     @FXML
     private ScrollPane scrollPane;
@@ -102,17 +106,30 @@ public class watchTournamentController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println(App.getTournaments().get(tournament).getType());
-        System.out.println(App.getTournaments().get(tournament).getParticipants());
         App.getTournaments().get(tournament).generateMatches();
         App.getTournaments().get(tournament).closeRegistration();
         App.write();
         VBox vbox = new VBox();
         ArrayList<Match> matches = App.getTournaments().get(tournament).getMatches();
-        System.out.println(matches);
         Label tournamentLabel = new Label(App.getTournaments().get(tournament).tString());
         tournamentLabel.setPrefSize(317.0, 34.0);
         tournamentLabel.setAlignment(Pos.CENTER);
+
+        teams.setCellValueFactory(
+            new PropertyValueFactory<>("team"));
+
+            points.setCellValueFactory(
+            new PropertyValueFactory<>("points"));
+            ranks.setCellValueFactory(
+            new PropertyValueFactory<>("rank"));
+        ObservableList<watchprofile> list = FXCollections.observableArrayList();
+        Collections.sort(App.getTournaments().get(tournament).getParticipants());
+        for (int i = 0; i < App.getTournaments().get(tournament).getParticipants().size(); i++) {
+            list.add(new watchprofile(App.getTournaments().get(tournament).getParticipants().get(i).toString(),
+                    (App.getTournaments().get(tournament).getParticipants().get(i).getPoints()), i + 1));
+        }
+        tableView.setItems(list);
+
         for (int j = 0; j < matches.size(); j++) {
 
             Match match = matches.get(j);
@@ -158,7 +175,6 @@ public class watchTournamentController implements Initializable {
             goals2.setPrefSize(141.0, 38.0);
             goals2.setAlignment(Pos.CENTER);
 
-
             Label date = new Label(match.getDate().toString());
             date.setPrefSize(317.0, 34.0);
             date.setAlignment(Pos.CENTER);
@@ -178,12 +194,11 @@ public class watchTournamentController implements Initializable {
         }
         scrollPane.setContent(vbox);
 
-       
     }
 
     public static void select(int t) {
         tournament = t;
-        
+
     }
 
 }

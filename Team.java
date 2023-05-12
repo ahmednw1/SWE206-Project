@@ -9,7 +9,6 @@ public class Team implements Serializable,Comparable<Team>{
     private int points;
     private int scoreFor;
     private int scoreAgainst;
-    private int rank;
 
     public Team(String name) {
         this.name = name;
@@ -21,6 +20,7 @@ public class Team implements Serializable,Comparable<Team>{
         this.students.add(student);
     }
 
+   
     public void deleteMember(Student student) {
         this.students.remove(student);
     }
@@ -71,19 +71,14 @@ public class Team implements Serializable,Comparable<Team>{
 
     @Override
     public int compareTo(Team o) {
-        return Integer.compare(this.points, o.points);
+        if(this.points > o.points){
+                    return 1;
+             }else if(this.points < o.points){
+                   return -1;
+                 }else{
+                   return 0;
+             }
     }
 
-    
 
-    // @Override
-    // public int compare(Team o1, Team o2) {
-    //     if(o1.points > o2.points){
-    //         return 1;
-    //     }else if(o1.points < o2.points){
-    //         return -1;
-    //     }else{
-    //         return 0;
-    //     }
-    // }
 }

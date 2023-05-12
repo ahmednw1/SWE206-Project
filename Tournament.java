@@ -72,12 +72,15 @@ public class Tournament implements Serializable{
     }
 
     public void generateMatches() {
-        if(tournamentType.equals("Elimination")) {
-            elimination();
-
-        }else {
-            roundRobin();
+        if(this.registerationOpen){
+            if(tournamentType.equals("Elimination")) {
+                elimination();
+    
+            }else {
+                roundRobin();
+            }
         }
+        
 
     }
 

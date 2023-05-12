@@ -64,7 +64,7 @@ public class AddScoreConroller implements Initializable {
     void DateClicked(ActionEvent event) throws IOException {
 
         VBox vbox = new VBox();
-        ArrayList<Tournament> tournaments = App.database.getTournaments();
+        ArrayList<Tournament> tournaments = App.getTournaments();
         // System.out.println("))))))))))))))))"+tournaments.get(0).getMatches());
         for (int i = 0; i < tournaments.size(); i++) {
             ArrayList<Match> matches = tournaments.get(i).getMatches();

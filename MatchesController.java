@@ -65,7 +65,7 @@ public class MatchesController implements Initializable {
     void DateClicked(ActionEvent event) {
 
         VBox vbox = new VBox(); // create a new VBox to hold the AnchorPanes
-        ArrayList<Tournament> tournaments = App.database.getTournaments();
+        ArrayList<Tournament> tournaments = App.getTournaments();
         for (int i = 0; i < tournaments.size(); i++) {
             ArrayList<Match> matches = tournaments.get(i).getMatches();
             for (int j = 0; j < matches.size(); j++) {

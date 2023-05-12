@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -22,7 +23,9 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
@@ -87,24 +90,31 @@ public class TournamentsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         VBox vboxFinish = new VBox();
+        vboxFinish.setSpacing(5);
+        vboxFinish.setPadding(new Insets(0, 0, 0, 5));
         VBox vboxCurrent = new VBox();
+        vboxCurrent.setSpacing(5);
+        vboxCurrent.setPadding(new Insets(0, 0, 0, 5));
         VBox vboxFuture = new VBox();
+        vboxFuture.setSpacing(5);
+        vboxFuture.setPadding(new Insets(0, 0, 0, 5));
 
         ArrayList<Tournament> tournaments = App.database.getTournaments();
         LocalDate todya = LocalDate.now();
         for (int i = 0; i < tournaments.size(); i++) {
             if (tournaments.get(i).getEndDate().isBefore(todya)) {
                 AnchorPane anchorPane = new AnchorPane();
-                anchorPane.setPrefSize(353.0, 100.0);
-                anchorPane.setTopAnchor(anchorPane, 0.0);
-                anchorPane.setLeftAnchor(anchorPane, 0.0);
-                anchorPane.setBottomAnchor(anchorPane, 0.0);
-                anchorPane.setRightAnchor(anchorPane, 0.0);
-
+                anchorPane.setStyle("-fx-border-color: #007574; -fx-border-radius:10;");
+                anchorPane.setPrefSize(350.0, 100.0);
+                AnchorPane.setTopAnchor(anchorPane, 0.0);
+                AnchorPane.setLeftAnchor(anchorPane, 0.0);
+                AnchorPane.setBottomAnchor(anchorPane, 0.0);
+                AnchorPane.setRightAnchor(anchorPane, 0.0);
+                
                 FlowPane card = new FlowPane();
                 card.setPrefSize(318.0, 152.0);
-                card.setLayoutX(18.0);
-                card.setLayoutY(27.0);
+                card.setLayoutX(10.0);
+                card.setLayoutY(20.0);
                 card.setEffect(new ColorAdjust(-0.1, -1.0, 1.0, 1.0));
 
                 Label tournamentLabel = new Label(tournaments.get(i).tString());
@@ -133,16 +143,34 @@ public class TournamentsController implements Initializable {
                 endDateLabel.setAlignment(Pos.CENTER);
                 endDateLabel.setId("finishedEndDate");
 
-                Label participantsLabel = new Label(tournaments.get(i).numberString());
-                participantsLabel.setPrefSize(309.0, 52.0);
-                participantsLabel.setAlignment(Pos.CENTER_LEFT);
-                participantsLabel.setId("finishedParticipantsNumber");
+                // Label participantsLabel = new Label(tournaments.get(i).numberString());
+                // participantsLabel.setPrefSize(309.0, 52.0);
+                // participantsLabel.setAlignment(Pos.CENTER_LEFT);
+                // participantsLabel.setId("finishedParticipantsNumber");
 
                 ImageView participantsImage = new ImageView(new Image("Imgs/profile_icon.png"));
                 participantsImage.setFitWidth(24.0);
                 participantsImage.setFitHeight(28.0);
 
-                participantsLabel.setGraphic(participantsImage);
+                HBox cardHBox = new HBox();
+                cardHBox.prefHeight(50.0);
+                cardHBox.prefWidth(422);
+
+                RadioButton teamsButton = new RadioButton("Teams participate");
+                teamsButton.setPrefSize(133.0, 46.0);
+                teamsButton.setOnAction(event -> {
+                    try {
+                        teamsClicked(event);
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                });
+                teamsButton.setPadding(new Insets(5));
+
+
+                // participantsLabel.setGraphic(participantsImage);
                 RadioButton watchButton = new RadioButton("Watch");
                 watchButton.setPrefSize(95.0, 46.0);
                 watchButton.setOnAction(event -> {
@@ -154,11 +182,16 @@ public class TournamentsController implements Initializable {
                     }
 
                 });
+                watchButton.setPadding(new Insets(5));
 
-                Line line = new Line(-24.577177047729492, 34.9288330078125, 380.7157287597656, 34.92866516113281);
+                cardHBox.getChildren().add(teamsButton);
+                cardHBox.getChildren().add(watchButton);
+                cardHBox.setMargin(watchButton,new Insets(0, 0, 0, 196));
+
+                //Line line = new Line(-24.577177047729492, 34.9288330078125, 380.7157287597656, 34.92866516113281);
 
                 card.getChildren().addAll(tournamentLabel, typeLabel, startDateLabel, untilLabel, endDateLabel,
-                        participantsLabel, watchButton, line);
+                cardHBox);//, line);
 
                 ColorAdjust effect = new ColorAdjust();
                 effect.setBrightness(-0.1);
@@ -172,7 +205,9 @@ public class TournamentsController implements Initializable {
                 vboxFinish.getChildren().add(anchorPane);
             } else if (tournaments.get(i).getStartDate().isAfter(todya) && tournaments.get(i).getRegistrationStatus()) {
                 AnchorPane anchorPane = new AnchorPane();
-                anchorPane.setPrefSize(353.0, 100.0);
+                anchorPane.setStyle("-fx-border-color: #007574; -fx-border-radius:10;");
+                //anchorPane.setStyle("-fx-border-radius:10");
+                anchorPane.setPrefSize(350.0, 100.0);
                 anchorPane.setTopAnchor(anchorPane, 0.0);
                 anchorPane.setLeftAnchor(anchorPane, 0.0);
                 anchorPane.setBottomAnchor(anchorPane, 0.0);
@@ -180,8 +215,8 @@ public class TournamentsController implements Initializable {
 
                 FlowPane card = new FlowPane();
                 card.setPrefSize(318.0, 152.0);
-                card.setLayoutX(18.0);
-                card.setLayoutY(27.0);
+                card.setLayoutX(10.0);
+                card.setLayoutY(20.0);
                 card.setEffect(new ColorAdjust(-0.1, -1.0, 1.0, 1.0));
 
                 Label tournamentLabel = new Label(tournaments.get(i).tString());
@@ -210,32 +245,43 @@ public class TournamentsController implements Initializable {
                 endDateLabel.setAlignment(Pos.CENTER);
                 endDateLabel.setId("finishedEndDate");
 
-                Label participantsLabel = new Label(tournaments.get(i).numberString());
-                participantsLabel.setPrefSize(170.0, 52.0);
-                participantsLabel.setAlignment(Pos.CENTER_LEFT);
-                participantsLabel.setId("finishedParticipantsNumber");
+                // Label participantsLabel = new Label(tournaments.get(i).numberString());
+                // participantsLabel.setPrefSize(170.0, 52.0);
+                // participantsLabel.setAlignment(Pos.CENTER_LEFT);
+                // participantsLabel.setId("finishedParticipantsNumber");
 
                 ImageView participantsImage = new ImageView(new Image("Imgs/profile_icon.png"));
                 participantsImage.setFitWidth(24.0);
                 participantsImage.setFitHeight(28.0);
 
-                participantsLabel.setGraphic(participantsImage);
+                HBox cardHBox = new HBox();
+                cardHBox.prefHeight(50.0);
+                cardHBox.prefWidth(422);
+
+                RadioButton teamsButton = new RadioButton("Teams participate");
+                teamsButton.setPrefSize(133.0, 46.0);
+                teamsButton.setOnAction(event -> {
+                    try {
+                        teamsClicked(event);
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                });
+                teamsButton.setPadding(new Insets(5));
+
+                // participantsLabel.setGraphic(participantsImage);
                 RadioButton enrollButton = new RadioButton("Enroll");
                 enrollButton.setPrefSize(95.0, 46.0);
                 int t = i;
                 enrollButton.setOnAction(event -> {
                     try {
                         if (App.database.getCurrentUser() instanceof Student) {
-                            if(App.getTournaments().get(t).getTeamNumber() == App.getTournaments().get(t).getParticipants().size()){
-                                // The tournament reached the capacity
-                            }
-                            else{
-                                EnrollmentController.select(t);
-                                enrollClicked(event);
-                            }
-                            
+                            EnrollmentController.select(t);
+                            enrollClicked(event);
                         } else {
-                            invalidMessage.setText("Sorry, You Must Be a Student to Enroll !");
+                            invalidMessage.setText("          Sorry, You Must Be a Student to Enroll !");
 
                         }
                     } catch (IOException e) {
@@ -245,6 +291,8 @@ public class TournamentsController implements Initializable {
                     }
 
                 });
+                enrollButton.setPadding(new Insets(5));
+
 
                 RadioButton generateButton = new RadioButton("Generate");
                 generateButton.setPrefSize(140.0, 46.0);
@@ -265,11 +313,18 @@ public class TournamentsController implements Initializable {
                     }
 
                 });
+                generateButton.setPadding(new Insets(5));
 
-                Line line = new Line(-24.577177047729492, 34.9288330078125, 380.7157287597656, 34.92866516113281);
+                cardHBox.getChildren().add(teamsButton);
+                cardHBox.getChildren().add(generateButton);
+                cardHBox.getChildren().add(enrollButton);
+                cardHBox.setMargin(enrollButton,new Insets(0, 0, 0, 16));
+                cardHBox.setMargin(generateButton,new Insets(0, 0, 0, 40));
+
+                //Line line = new Line(-24.577177047729492, 34.9288330078125, 380.7157287597656, 34.92866516113281);
 
                 card.getChildren().addAll(tournamentLabel, typeLabel, startDateLabel, untilLabel, endDateLabel,
-                        participantsLabel, generateButton, enrollButton, line);
+                        cardHBox);//, line);
 
                 ColorAdjust effect = new ColorAdjust();
                 effect.setBrightness(-0.1);
@@ -281,9 +336,12 @@ public class TournamentsController implements Initializable {
 
                 anchorPane.getChildren().add(card);
                 vboxFuture.getChildren().add(anchorPane);
+                //vboxFuture.setMargin(anchorPane,new Insets(2, 2, 2, 2));
+
             } else {
                 AnchorPane anchorPane = new AnchorPane();
-                anchorPane.setPrefSize(353.0, 100.0);
+                anchorPane.setStyle("-fx-border-color: #007574; -fx-border-radius:10;");
+                anchorPane.setPrefSize(350.0, 100.0);
                 anchorPane.setTopAnchor(anchorPane, 0.0);
                 anchorPane.setLeftAnchor(anchorPane, 0.0);
                 anchorPane.setBottomAnchor(anchorPane, 0.0);
@@ -291,8 +349,8 @@ public class TournamentsController implements Initializable {
 
                 FlowPane card = new FlowPane();
                 card.setPrefSize(318.0, 152.0);
-                card.setLayoutX(18.0);
-                card.setLayoutY(27.0);
+                card.setLayoutX(10.0);
+                card.setLayoutY(20.0);
                 card.setEffect(new ColorAdjust(-0.1, -1.0, 1.0, 1.0));
 
                 Label tournamentLabel = new Label(tournaments.get(i).tString());
@@ -321,16 +379,35 @@ public class TournamentsController implements Initializable {
                 endDateLabel.setAlignment(Pos.CENTER);
                 endDateLabel.setId("finishedEndDate");
 
-                Label participantsLabel = new Label(tournaments.get(i).numberString());
-                participantsLabel.setPrefSize(309.0, 52.0);
-                participantsLabel.setAlignment(Pos.CENTER_LEFT);
-                participantsLabel.setId("finishedParticipantsNumber");
+                // Label participantsLabel = new Label(tournaments.get(i).numberString());
+                // participantsLabel.setPrefSize(309.0, 52.0);
+                // participantsLabel.setAlignment(Pos.CENTER_LEFT);
+                // participantsLabel.setId("finishedParticipantsNumber");
 
                 ImageView participantsImage = new ImageView(new Image("Imgs/profile_icon.png"));
                 participantsImage.setFitWidth(24.0);
                 participantsImage.setFitHeight(28.0);
 
-                participantsLabel.setGraphic(participantsImage);
+                // participantsLabel.setGraphic(participantsImage);
+
+                HBox cardHBox = new HBox();
+                cardHBox.prefHeight(50.0);
+                cardHBox.prefWidth(422);
+
+                RadioButton teamsButton = new RadioButton("Teams participate");
+                teamsButton.setPrefSize(133.0, 46.0);
+                teamsButton.setOnAction(event -> {
+                    try {
+                        teamsClicked(event);
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                });
+                teamsButton.setPadding(new Insets(5));
+
+
                 RadioButton watchButton = new RadioButton("Watch");
                 watchButton.setPrefSize(95.0, 46.0);
                 int t = i;
@@ -343,11 +420,16 @@ public class TournamentsController implements Initializable {
                         e.printStackTrace();
                     }
                 });
+                watchButton.setPadding(new Insets(5));
 
-                Line line = new Line(-24.577177047729492, 34.9288330078125, 380.7157287597656, 34.92866516113281);
+                cardHBox.getChildren().add(teamsButton);
+                cardHBox.getChildren().add(watchButton);
+                cardHBox.setMargin(watchButton,new Insets(0, 0, 0, 196));
+
+                //Line line = new Line(-24.577177047729492, 34.9288330078125, 380.7157287597656, 34.92866516113281);
 
                 card.getChildren().addAll(tournamentLabel, typeLabel, startDateLabel, untilLabel, endDateLabel,
-                        participantsLabel, watchButton, line);
+                        cardHBox);//, line);
 
                 ColorAdjust effect = new ColorAdjust();
                 effect.setBrightness(-0.1);
@@ -399,6 +481,14 @@ public class TournamentsController implements Initializable {
     @FXML
     void enrollClicked(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Enrollment.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    void teamsClicked(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Teams.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

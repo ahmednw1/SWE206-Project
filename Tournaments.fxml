@@ -48,13 +48,13 @@
             </Button>
          </buttons>
       </ButtonBar>
-      <TabPane fx:id="tabPane" focusTraversable="false" layoutX="31.0" layoutY="42.0" prefHeight="468.0" prefWidth="439.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" focusTraversable="false" layoutX="31.0" layoutY="42.0" prefHeight="468.0" prefWidth="455.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Finished Tournaments">
             <content>
                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane fx:id="finishedScrollPane" layoutY="2.0" prefHeight="434.0" prefWidth="439.0">
+                        <ScrollPane fx:id="finishedScrollPane" layoutY="2.0" prefHeight="434.0" prefWidth="470.0">
                            <content>
                               
                            </content>
@@ -67,7 +67,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane fx:id="ongoingScrollPane" layoutY="2.0" prefHeight="434.0" prefWidth="439.0">
+                        <ScrollPane fx:id="ongoingScrollPane" layoutY="2.0" prefHeight="434.0" prefWidth="470.0">
                            <content>
                               
                            </content>
@@ -79,7 +79,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane fx:id="upcomingScrollPane" layoutY="2.0" prefHeight="434.0" prefWidth="439.0">
+                        <ScrollPane fx:id="upcomingScrollPane" layoutY="2.0" prefHeight="434.0" prefWidth="470.0">
                            <content>
                               
                            </content>

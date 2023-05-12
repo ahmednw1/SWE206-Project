@@ -98,6 +98,7 @@ public class watchTournamentController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println(App.getTournaments().get(tournament).getType());
         System.out.println(App.getTournaments().get(tournament).getParticipants());
         App.getTournaments().get(tournament).generateMatches();
         App.getTournaments().get(tournament).closeRegistration();

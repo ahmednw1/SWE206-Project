@@ -26,7 +26,7 @@ public class App extends Application {
       root = FXMLLoader.load(getClass().getResource("Login.fxml"));
       Scene scene = new Scene(root);
 
-      primaryStage.setTitle("Mathces");
+      primaryStage.setTitle("Tournament App");
       primaryStage.setScene(scene);
       primaryStage.show();
     } catch (IOException e) {

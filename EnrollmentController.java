@@ -150,8 +150,7 @@ public class EnrollmentController implements Initializable {
         }
 
         if (team.size() + 1 == App.getTournaments().get(selectedTournament).getTeamNumber() && !failed) {
-            Team newTeam = new Team(App.getTournaments().get(selectedTournament).getName() + " "
-                    + ((Integer) (App.getTournaments().get(selectedTournament).getParticipants().size() + 1)).toString());
+            Team newTeam = new Team(teamName.getText());
             newTeam.addMember((Student) App.database.getCurrentUser());
             ((Student) App.database.getCurrentUser()).addTeam(newTeam);
             App.write();

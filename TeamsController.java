@@ -35,13 +35,21 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class TeamsController implements Initializable {
+
+    static int selectedTournament;
+
     
     @FXML
     private VBox vBox;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        AnchorPane anchorPane = new AnchorPane();
+    Tournament tournament = App.database.getTournaments().get(selectedTournament);
+        
+        ArrayList<Team> teams = tournament.getParticipants();
+        System.out.println(teams);
+        for(int i=0; i<teams.size();i++){
+            AnchorPane anchorPane = new AnchorPane();
         anchorPane.setStyle("-fx-border-color: #007574; -fx-border-radius:10;");
         anchorPane.setPrefSize(452.0, 193.0);
         AnchorPane.setTopAnchor(anchorPane, 0.0);
@@ -55,16 +63,18 @@ public class TeamsController implements Initializable {
         card.setLayoutY(12.0);
         card.setEffect(new ColorAdjust(-0.1, -1.0, 1.0, 1.0));
 
-        Label teamName = new Label("Team");
+        Label teamName = new Label(teams.get(i).getName());
         teamName.setFont(new Font(24));
-        teamName.setPrefSize(214, 38);
+        teamName.setPrefSize(295, 38);
         teamName.setAlignment(Pos.CENTER);
 
-        RadioButton deleteButton = new RadioButton("delete");
+        RadioButton deleteButton = new RadioButton("Delete");
         deleteButton.setPrefSize(66.0, 23.0);
+        int t = i;
         deleteButton.setOnAction(event -> {
             try {
-                deleteButton(event);
+                
+                deleteButton(event, t);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -92,16 +102,27 @@ public class TeamsController implements Initializable {
         // gridPane.setPrefsize (500, 500);
         // Place nodes in the gridPane
 
-        int buttonCount=9;
-        for (int i = 0; i < buttonCount; i++) {
-            RadioButton radioButton = new RadioButton("Name"+i);
+        int buttonCount=tournament.getTeamNumber();
+        for (int j = 0; j < buttonCount; j++) {
+            RadioButton radioButton = new RadioButton(teams.get(i).getMembers().get(j).getName());
             radioButton.prefHeight(20);
             radioButton.prefWidth(70);
             radioButton.setFont(new Font(17));
-            int row = i / 3;
-            int col = i % 3;
+            int row = j / 3;
+            int col = j % 3;
             GridPane.setConstraints(radioButton, col, row);
             gridPane.getChildren().add(radioButton);
+            int w = i;
+            int k = j;
+            radioButton.setOnAction(event -> {
+                try {
+                    TeamsProfileController.select(teams.get(w).getMembers().get(k));
+                    memberClicked(event);
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
+            }
+            );
         }
         
 
@@ -117,10 +138,26 @@ public class TeamsController implements Initializable {
 
         anchorPane.getChildren().add(card);
         vBox.getChildren().add(anchorPane);
+        }
+        
     }
 
-    private void deleteButton(ActionEvent event) throws IOException {
-
+    private void deleteButton(ActionEvent event, int t) throws IOException {
+        App.database.getTournaments().get(selectedTournament).deleteParticipant(t);
+        App.write();
+        //System.out.println(App.database.getTournaments().get(selectedTournament).getParticipants());
+        Parent root = FXMLLoader.load(getClass().getResource("Tournaments.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    private void memberClicked(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("TeamsProfile.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -157,6 +194,10 @@ public class TeamsController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public static void select(int t) {
+        selectedTournament = t;
     }
 
 }

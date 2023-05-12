@@ -36,8 +36,13 @@ public class Team implements Serializable {
     }
 
     public void tournamentEnroll(Tournament tournament) {
-        this.enrolledTournament = tournament;
-        tournament.addParticipant(this);
+        if(tournament != null){
+            this.enrolledTournament = tournament;
+            tournament.addParticipant(this);
+        }else{
+            this.enrolledTournament = null;
+            
+        }
     }
 
     public void updatePoints(int point){
@@ -50,5 +55,9 @@ public class Team implements Serializable {
     }
     public String toString(){
         return name;
+    }
+
+    public void delete(){
+        this.enrolledTournament = null;
     }
 }

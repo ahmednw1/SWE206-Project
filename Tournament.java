@@ -54,10 +54,15 @@ public class Tournament implements Serializable{
         this.registerationOpen = false;
     }
 
-    public void deleteParticipant(Team team) {
-        if (this.participants.contains(team) && this.registerationOpen) {
-            this.participants.remove(team);
-        }
+    public void deleteParticipant(int i) {
+        //if (this.registerationOpen) {
+            Team team = this.getParticipants().get(i);
+            this.participants.remove(i);
+            System.out.println(this.getParticipants());
+            // this.participants.remove(team);
+             team.tournamentEnroll(null);
+            // team.delete();
+        //}
     }
 
     public void displayTournamentResult() {

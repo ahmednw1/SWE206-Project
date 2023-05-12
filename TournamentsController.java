@@ -156,10 +156,12 @@ public class TournamentsController implements Initializable {
                 cardHBox.prefHeight(50.0);
                 cardHBox.prefWidth(422);
 
-                RadioButton teamsButton = new RadioButton("Teams participate");
+                RadioButton teamsButton = new RadioButton("Teams");
                 teamsButton.setPrefSize(133.0, 46.0);
+                int t = i;
                 teamsButton.setOnAction(event -> {
                     try {
+                        TeamsController.select(t);
                         teamsClicked(event);
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
@@ -175,7 +177,7 @@ public class TournamentsController implements Initializable {
                 watchButton.setPrefSize(95.0, 46.0);
                 watchButton.setOnAction(event -> {
                     try {
-                        watchClicked(event);
+                        watchClicked(event, tournaments.get(t));
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -258,10 +260,12 @@ public class TournamentsController implements Initializable {
                 cardHBox.prefHeight(50.0);
                 cardHBox.prefWidth(422);
 
-                RadioButton teamsButton = new RadioButton("Teams participate");
+                RadioButton teamsButton = new RadioButton("Teams");
                 teamsButton.setPrefSize(133.0, 46.0);
+                int t = i;
                 teamsButton.setOnAction(event -> {
                     try {
+                        TeamsController.select(t);
                         teamsClicked(event);
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
@@ -274,7 +278,7 @@ public class TournamentsController implements Initializable {
                 // participantsLabel.setGraphic(participantsImage);
                 RadioButton enrollButton = new RadioButton("Enroll");
                 enrollButton.setPrefSize(95.0, 46.0);
-                int t = i;
+               
                 enrollButton.setOnAction(event -> {
                     try {
                         if (App.database.getCurrentUser() instanceof Student) {
@@ -304,7 +308,7 @@ public class TournamentsController implements Initializable {
                             invalidMessage.setText("               Sorry, There Are No Participants !");
                         } else {
                             watchTournamentController.select(t);
-                            generateClicked(event2);
+                            generateClicked(event2,tournaments.get(t));
                         }
 
                     } catch (IOException e) {
@@ -394,10 +398,12 @@ public class TournamentsController implements Initializable {
                 cardHBox.prefHeight(50.0);
                 cardHBox.prefWidth(422);
 
-                RadioButton teamsButton = new RadioButton("Teams participate");
+                RadioButton teamsButton = new RadioButton("Teams");
                 teamsButton.setPrefSize(133.0, 46.0);
+                int t= i;
                 teamsButton.setOnAction(event -> {
                     try {
+                        TeamsController.select(t);
                         teamsClicked(event);
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
@@ -410,11 +416,14 @@ public class TournamentsController implements Initializable {
 
                 RadioButton watchButton = new RadioButton("Watch");
                 watchButton.setPrefSize(95.0, 46.0);
-                int t = i;
                 watchButton.setOnAction(event -> {
                     try {
+                        if(tournaments.get(t).getType()=="Elimination"){
                         watchTournamentController.select(t);
-                        watchClicked(event);
+                        }else{
+                        eleminationController.select(t);
+                        }
+                        watchClicked(event, tournaments.get(t));
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -511,21 +520,37 @@ public class TournamentsController implements Initializable {
     }
 
     @FXML
-    void watchClicked(ActionEvent event) throws IOException {
+    void watchClicked(ActionEvent event, Tournament t) throws IOException {
+        if(t.getType().equals("Elimination")){
+        Parent root = FXMLLoader.load(getClass().getResource("Elemination.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        }else{
         Parent root = FXMLLoader.load(getClass().getResource("WatchTournament.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        }
     }
 
     @FXML
-    void generateClicked(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("WatchTournament.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    void generateClicked(ActionEvent event, Tournament t) throws IOException {
+        if(t.getType().equals("Elimination")){
+            Parent root = FXMLLoader.load(getClass().getResource("Elemination.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            }else{
+            Parent root = FXMLLoader.load(getClass().getResource("WatchTournament.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            }
     }
 
 }

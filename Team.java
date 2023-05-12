@@ -1,13 +1,15 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 
-public class Team implements Serializable {
+public class Team implements Serializable,Comparable<Team>{
     private ArrayList<Student> students;
     private String name;
     private Tournament enrolledTournament;
     private int points;
     private int scoreFor;
     private int scoreAgainst;
+    private int rank;
 
     public Team(String name) {
         this.name = name;
@@ -60,4 +62,28 @@ public class Team implements Serializable {
     public void delete(){
         this.enrolledTournament = null;
     }
+    public int getPoints(){
+        return this.points;
+    }
+
+    
+    
+
+    @Override
+    public int compareTo(Team o) {
+        return Integer.compare(this.points, o.points);
+    }
+
+    
+
+    // @Override
+    // public int compare(Team o1, Team o2) {
+    //     if(o1.points > o2.points){
+    //         return 1;
+    //     }else if(o1.points < o2.points){
+    //         return -1;
+    //     }else{
+    //         return 0;
+    //     }
+    // }
 }

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Admin extends User {
 
     public Admin(String email, String ID, String name, String pass) {
@@ -15,6 +17,10 @@ public class Admin extends User {
 
     public boolean getAccess() {
         return super.access;
+    }
+    @Override
+    public ArrayList<Team> getTeams() {
+        return null;
     }
 
 }

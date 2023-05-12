@@ -1,10 +1,12 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public abstract class User implements Serializable {
     private String email;
     private String ID;
     private String name;
     private String pass;
+
 
     protected boolean access;
 
@@ -31,6 +33,8 @@ public abstract class User implements Serializable {
     }
 
     public abstract boolean  getAccess();
+    public abstract ArrayList<Team>  getTeams();
+
     public void setEmail(String email) {
         this.email = email;
     }

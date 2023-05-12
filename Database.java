@@ -43,7 +43,6 @@ public class Database {
         } catch (Exception e) {
             e.getStackTrace();
         }
-        System.out.println("j");
         return null;
     }
 

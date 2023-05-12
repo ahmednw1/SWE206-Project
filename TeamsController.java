@@ -44,7 +44,7 @@ public class TeamsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    Tournament tournament = App.database.getTournaments().get(selectedTournament);
+    Tournament tournament = App.getTournaments().get(selectedTournament);
         
         ArrayList<Team> teams = tournament.getParticipants();
         System.out.println(teams);
@@ -143,7 +143,7 @@ public class TeamsController implements Initializable {
     }
 
     private void deleteButton(ActionEvent event, int t) throws IOException {
-        App.database.getTournaments().get(selectedTournament).deleteParticipant(t);
+        App.getTournaments().get(selectedTournament).deleteParticipant(t);
         App.write();
         //System.out.println(App.database.getTournaments().get(selectedTournament).getParticipants());
         Parent root = FXMLLoader.load(getClass().getResource("Tournaments.fxml"));

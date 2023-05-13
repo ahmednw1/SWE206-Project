@@ -109,16 +109,4 @@ public class Database {
 
     }
 
-    public void setCurrentUser(User user) {
-        currentUser = user;
-    }
-
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public void logout() {
-         this.currentUser = null;
-    }
-
 }

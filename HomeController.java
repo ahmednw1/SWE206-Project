@@ -15,13 +15,13 @@ public class HomeController {
 
     @FXML
     void AddScoresClicked(ActionEvent event) throws IOException {
-        if (App.database.getCurrentUser() instanceof Admin) {
+        if (App.users.get(App.getCurrentUser()) instanceof Admin) {
             Parent root = FXMLLoader.load(getClass().getResource("AddScoreConroller.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        }else{
+        } else {
             invalidMessage.setText("Sorry, You Must Be an Admin to Add Score !");
         }
 
@@ -29,13 +29,13 @@ public class HomeController {
 
     @FXML
     void AddTournamentClicked(ActionEvent event) throws IOException {
-        if (App.database.getCurrentUser() instanceof Admin) {
+        if (App.users.get(App.getCurrentUser()) instanceof Admin) {
             Parent root = FXMLLoader.load(getClass().getResource("AddTournament.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        }else{
+        } else {
             invalidMessage.setText("Sorry, You Must Be an Admin to Add Tournament !");
         }
     }
@@ -78,7 +78,7 @@ public class HomeController {
 
     @FXML
     void logoutClicked(ActionEvent event) throws IOException {
-        App.database.logout();
+        App.setCurrentUser(null);
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);

@@ -107,7 +107,7 @@ public class EnrollmentController implements Initializable {
     @FXML
     void enrollClicked(ActionEvent event) throws IOException {
         boolean failed = false;
-        if(App.getTournaments().get(selectedTournament).isIn((Student)App.database.getCurrentUser())){
+        if(App.getTournaments().get(selectedTournament).isIn((Student)App.users.get(App.getCurrentUser())) || App.getTournaments().get(selectedTournament).capacity == App.getTournaments().get(selectedTournament).getParticipants().size()){
             failed = true;
         }
         for (int i = 0; i < App.getTournaments().get(selectedTournament).getTeamNumber() - 1 && !failed; i++) {
@@ -115,11 +115,12 @@ public class EnrollmentController implements Initializable {
                 String info = authentiacate(ids.get(i).getText());
                 if (info != null) {
 
-                    Student user = (Student) (App.database.getUser(ids.get(i).getText()));
+                    User user = (App.database.getUser(ids.get(i).getText()));
                     if (user == null) {
                         JSONObject jsonObject = new JSONObject(info);
                         if (jsonObject.getString("type").equals("admin")) {
                             // Admin not allowed
+                            failed = true;
 
                         } else {
                             Student student = new Student(jsonObject.getString("email"),
@@ -133,7 +134,7 @@ public class EnrollmentController implements Initializable {
                     } else {
                         int pos = 0;
                         for (int k = 0; k < App.getUsers().size(); k++) {
-                            if ((App.getUsers().get(i).getID()).equals(ids.get(i))) {
+                            if ((App.getUsers().get(k).getID()).equals(ids.get(i).getText())) {
                                 pos = k;
                             }
                         }
@@ -145,23 +146,22 @@ public class EnrollmentController implements Initializable {
                 }
             } catch (Exception e) {
                 failed = true;
-                System.out.println(e);
             }
         }
 
         if (team.size() + 1 == App.getTournaments().get(selectedTournament).getTeamNumber() && !failed) {
             Team newTeam = new Team(teamName.getText());
-            newTeam.addMember((Student) App.database.getCurrentUser());
-            ((Student) App.database.getCurrentUser()).addTeam(newTeam);
+            App.getTournaments().get(selectedTournament).addParticipant(newTeam);
+           
+            newTeam.addMember((Student) App.users.get(App.getCurrentUser()));
+            ((Student) App.users.get(App.getCurrentUser())).addTeam(newTeam);
             App.write();
-            System.out.println(((Student) App.database.getCurrentUser()).getTeams());
             for (int j = 0; j < App.getTournaments().get(selectedTournament).getTeamNumber() - 1; j++) {
                 newTeam.addMember(team.get(j));
                 team.get(j).addTeam(newTeam);
                 App.write();
 
             }
-            newTeam.tournamentEnroll(App.getTournaments().get(selectedTournament));
             App.getTeams().add(newTeam);
             App.write();
 
@@ -175,7 +175,7 @@ public class EnrollmentController implements Initializable {
             stage.show();
         }
         else if(failed){
-            // particpant is already register 
+            invalidMessage.setText("Enrollment not complete, please read the guidliens");
         }
 
     }

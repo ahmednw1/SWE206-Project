@@ -77,7 +77,7 @@ public class TeamsController implements Initializable {
             try {
                 if(!tournament.getRegistrationStatus()){
                     invalidMessage.setText("Sorry, You Cannot Delete Any Team After Tournament Started");
-                }else if(!(App.database.getCurrentUser() instanceof Admin)){
+                }else if(!(App.users.get(App.getCurrentUser()) instanceof Admin)){
                     invalidMessage.setText("                   Sorry, You Must Be Admin to Delete Team");
                 }else{
                 deleteButton(event, t);

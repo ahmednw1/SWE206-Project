@@ -12,7 +12,7 @@ public class Tournament implements Serializable{
     private int eachStageDays;
     private LocalDate endDate;
     private ArrayList<Team> participants = new ArrayList<>();
-    private int capacity;
+     int capacity;
     //private String participationType;
     private boolean registerationOpen;
     private Sport sport;
@@ -41,7 +41,9 @@ public class Tournament implements Serializable{
 
     public void addParticipant(Team team) {
         if (this.participants.size() < this.capacity && this.registerationOpen) {
+            System.out.println("Added to tournament");
             this.participants.add(team);
+            team.setTournament(this);
         }
     }
     public String getName() {
@@ -62,7 +64,7 @@ public class Tournament implements Serializable{
             this.participants.remove(i);
             System.out.println(this.getParticipants());
             // this.participants.remove(team);
-             team.tournamentEnroll(null);
+             team.setTournament(null);
             // team.delete();
         //}
     }
@@ -237,7 +239,7 @@ public class Tournament implements Serializable{
     public boolean isIn(Student st){
         for(int i=0;i<participants.size();i++){
             for(int j=0;j<participants.get(i).getMembers().size();j++){
-                if(participants.get(i).getMembers().get(j).equals(st)){
+                if(participants.get(i).getMembers().get(j).getID().equals(st.getID())){
                     return true;
                 }
             } 

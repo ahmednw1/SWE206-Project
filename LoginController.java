@@ -44,14 +44,14 @@ public class LoginController {
                         Admin admin = new Admin(name, pass);
                         users.add(admin);
                         App.write();
-                        App.database.setCurrentUser(admin);
+                        App.setCurrentUser(users.size()-1);
 
                     } else {
                         Student student = new Student(jsonObject.getString("email"), name,
                                 jsonObject.getString("name"), pass);
                         users.add(student);
                         App.write();
-                        App.database.setCurrentUser(student);
+                        App.setCurrentUser(users.size()-1);
 
                     }
 
@@ -62,8 +62,7 @@ public class LoginController {
                             pos = i;
                         }
                     }
-                    App.database.setCurrentUser(App.getUsers().get(pos));
-                    System.out.println(App.database.getCurrentUser());
+                    App.setCurrentUser(pos);
                 }
 
                 Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));

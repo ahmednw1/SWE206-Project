@@ -36,16 +36,11 @@ public class Team implements Serializable,Comparable<Team>{
     public Tournament getTournament() {
         return this.enrolledTournament;
     }
-
-    public void tournamentEnroll(Tournament tournament) {
-        if(tournament != null){
-            this.enrolledTournament = tournament;
-            tournament.addParticipant(this);
-        }else{
-            this.enrolledTournament = null;
-            
-        }
+    public Tournament setTournament(Tournament t) {
+        return this.enrolledTournament = t;
     }
+
+
 
     public void updatePoints(int point){
         points += point;
@@ -59,9 +54,7 @@ public class Team implements Serializable,Comparable<Team>{
         return name;
     }
 
-    public void delete(){
-        this.enrolledTournament = null;
-    }
+  
     public int getPoints(){
         return this.points;
     }

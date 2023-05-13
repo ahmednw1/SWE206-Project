@@ -38,6 +38,8 @@ public class TeamsController implements Initializable {
 
     static int selectedTournament;
 
+    @FXML
+    private Label invalidMessage;
     
     @FXML
     private VBox vBox;
@@ -73,8 +75,13 @@ public class TeamsController implements Initializable {
         int t = i;
         deleteButton.setOnAction(event -> {
             try {
-                
+                if(!tournament.getRegistrationStatus()){
+                    invalidMessage.setText("Sorry, You Cannot Delete Any Team After Tournament Started");
+                }else if(!(App.database.getCurrentUser() instanceof Admin)){
+                    invalidMessage.setText("                   Sorry, You Must Be Admin to Delete Team");
+                }else{
                 deleteButton(event, t);
+                }
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

@@ -30,7 +30,7 @@ public class eleminationController implements Initializable {
     private ScrollPane stgesScrollPane;
 
     
-    static int tournament;
+    static Tournament tournament;
 
     @FXML
     private AnchorPane anchorPane;
@@ -48,9 +48,13 @@ public class eleminationController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Tournament t = App.getTournaments().get(tournament);
-        App.getTournaments().get(tournament).generateMatches();
-        App.getTournaments().get(tournament).closeRegistration();
+        
+        
+        ArrayList<Team> teams = tournament.getParticipants();
+        System.out.println(teams);
+        System.out.println(tournament.getParticipants());
+        tournament.generateMatches();
+        tournament.closeRegistration();
         App.write();
         AnchorPane stagesAnchorPane = new AnchorPane();
             stagesAnchorPane.setPrefSize(253.0, 100.0);
@@ -58,14 +62,14 @@ public class eleminationController implements Initializable {
             stagesAnchorPane.setLeftAnchor(stagesAnchorPane, 0.0);
             stagesAnchorPane.setBottomAnchor(stagesAnchorPane, 0.0);
             stagesAnchorPane.setRightAnchor(stagesAnchorPane, 0.0);
-        ArrayList<Match> matches = App.getTournaments().get(tournament).getMatches();
+        ArrayList<Match> matches = tournament.getMatches();
         treeView.setRoot(root);
         treeView.setShowRoot(false);
         treeView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> System.out.println(newValue.getValue()));
-        int numOfRounds = (int) Math.ceil(t.getParticipants().size()/2);
+        int numOfRounds = (int) Math.ceil(tournament.getParticipants().size()/2);
         
-        System.out.println(t.getParticipants());
+        System.out.println(tournament.getParticipants());
         System.out.println(numOfRounds);
         TreeItem<String>[] stageNodes = new TreeItem[numOfRounds];
         for (int i = 0; i < numOfRounds; i++) {
@@ -73,11 +77,11 @@ public class eleminationController implements Initializable {
             root.getChildren().add(stageNodes[i]);
         }
 
-        TreeItem<String>[] matchNodes = new TreeItem[t.getParticipants().size()-1];
+        TreeItem<String>[] matchNodes = new TreeItem[tournament.getParticipants().size()-1];
         int matchIndex = 0;
         for (int i = 0; i < numOfRounds; i++) {
             for (int j = 0; j < Math.pow(numOfRounds, numOfRounds - i - 1); j++) {
-                matchNodes[matchIndex] = new TreeItem<>("Match " + (matchIndex + 1));
+                matchNodes[matchIndex] = new TreeItem<>(matches.get(j).getTeam1() + " vs " + matches.get(j).getTeam2());
                 stageNodes[i].getChildren().add(matchNodes[matchIndex]);
                 matchIndex++;
             }
@@ -100,7 +104,7 @@ public class eleminationController implements Initializable {
 
         VBox vbox = new VBox();
         System.out.println(matches);
-        Label tournamentLabel = new Label(App.getTournaments().get(tournament).tString());
+        Label tournamentLabel = new Label(tournament.tString());
         tournamentLabel.setPrefSize(317.0, 34.0);
         tournamentLabel.setAlignment(Pos.CENTER);
         for (int j = 0; j < matches.size(); j++) {
@@ -207,7 +211,7 @@ public class eleminationController implements Initializable {
         stage.show();
     }
 
-    public static void select(int t) {
+    public static void select(Tournament t) {
         tournament = t;
 
     }

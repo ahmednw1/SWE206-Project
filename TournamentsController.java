@@ -99,7 +99,7 @@ public class TournamentsController implements Initializable {
         vboxFuture.setSpacing(5);
         vboxFuture.setPadding(new Insets(0, 0, 0, 5));
 
-        ArrayList<Tournament> tournaments = App.database.getTournaments();
+        ArrayList<Tournament> tournaments = App.getTournaments();
         LocalDate todya = LocalDate.now();
         for (int i = 0; i < tournaments.size(); i++) {
             if (tournaments.get(i).getEndDate().isBefore(todya)) {
@@ -205,7 +205,7 @@ public class TournamentsController implements Initializable {
 
                 anchorPane.getChildren().add(card);
                 vboxFinish.getChildren().add(anchorPane);
-            } else if (tournaments.get(i).getStartDate().isAfter(todya) && tournaments.get(i).getRegistrationStatus()) {
+            } else if (tournaments.get(i).getStartDate().isAfter(todya) && tournaments.get(i).getRegistrationStatus() && tournaments.get(i).getMatches().size() ==0) {
                 AnchorPane anchorPane = new AnchorPane();
                 anchorPane.setStyle("-fx-border-color: #007574; -fx-border-radius:10;");
                 //anchorPane.setStyle("-fx-border-radius:10");
@@ -300,15 +300,15 @@ public class TournamentsController implements Initializable {
 
                 RadioButton generateButton = new RadioButton("Generate");
                 generateButton.setPrefSize(140.0, 46.0);
-                generateButton.setOnAction(event2 -> {
+                generateButton.setOnAction(event -> {
                     try {
                         if (!(App.database.getCurrentUser() instanceof Admin)) {
                             invalidMessage.setText("Sorry, You Must Be an Admin to Generate Matches !");
                         } else if (tournaments.get(t).getParticipants().size() == 0) {
                             invalidMessage.setText("               Sorry, There Are No Participants !");
                         } else {
-                            watchTournamentController.select(t);
-                            generateClicked(event2,tournaments.get(t));
+                            
+                            generateClicked(event,tournaments.get(t));
                         }
 
                     } catch (IOException e) {
@@ -418,11 +418,7 @@ public class TournamentsController implements Initializable {
                 watchButton.setPrefSize(95.0, 46.0);
                 watchButton.setOnAction(event -> {
                     try {
-                        if(tournaments.get(t).getType()=="Elimination"){
-                        watchTournamentController.select(t);
-                        }else{
-                        eleminationController.select(t);
-                        }
+                        
                         watchClicked(event, tournaments.get(t));
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
@@ -522,12 +518,14 @@ public class TournamentsController implements Initializable {
     @FXML
     void watchClicked(ActionEvent event, Tournament t) throws IOException {
         if(t.getType().equals("Elimination")){
+        eleminationController.select(t);
         Parent root = FXMLLoader.load(getClass().getResource("Elemination.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
         }else{
+        watchTournamentController.select(t);
         Parent root = FXMLLoader.load(getClass().getResource("WatchTournament.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
@@ -538,13 +536,16 @@ public class TournamentsController implements Initializable {
 
     @FXML
     void generateClicked(ActionEvent event, Tournament t) throws IOException {
+        System.out.println(t.getParticipants());
         if(t.getType().equals("Elimination")){
+            eleminationController.select(t);
             Parent root = FXMLLoader.load(getClass().getResource("Elemination.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
             }else{
+            watchTournamentController.select(t);
             Parent root = FXMLLoader.load(getClass().getResource("WatchTournament.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);

@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 
 public class watchTournamentController implements Initializable {
 
-    static int tournament;
+    static Tournament tournament;
 
     @FXML
     private FlowPane card;
@@ -102,15 +102,14 @@ public class watchTournamentController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println(App.getTournaments().get(tournament).getType());
-        System.out.println(App.getTournaments().get(tournament).getParticipants());
-        App.getTournaments().get(tournament).generateMatches();
-        App.getTournaments().get(tournament).closeRegistration();
+        System.out.println(tournament);
+        tournament.generateMatches();
+        tournament.closeRegistration();
         App.write();
         VBox vbox = new VBox();
-        ArrayList<Match> matches = App.getTournaments().get(tournament).getMatches();
+        ArrayList<Match> matches = tournament.getMatches();
         System.out.println(matches);
-        Label tournamentLabel = new Label(App.getTournaments().get(tournament).tString());
+        Label tournamentLabel = new Label(tournament.tString());
         tournamentLabel.setPrefSize(317.0, 34.0);
         tournamentLabel.setAlignment(Pos.CENTER);
         for (int j = 0; j < matches.size(); j++) {
@@ -181,7 +180,7 @@ public class watchTournamentController implements Initializable {
        
     }
 
-    public static void select(int t) {
+    public static void select(Tournament t) {
         tournament = t;
         
     }

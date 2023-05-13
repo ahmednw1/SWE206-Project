@@ -304,8 +304,8 @@ public class TournamentsController implements Initializable {
                     try {
                         if (!(App.database.getCurrentUser() instanceof Admin)) {
                             invalidMessage.setText("Sorry, You Must Be an Admin to Generate Matches !");
-                        } else if (tournaments.get(t).getParticipants().size() == 0) {
-                            invalidMessage.setText("               Sorry, There Are No Participants !");
+                        } else if (tournaments.get(t).getParticipants().size() > tournaments.get(t).capacity) {
+                            invalidMessage.setText(" Sorry, There The Participants are not complete !");
                         } else {
                             watchTournamentController.select(t);
                             generateClicked(event2,tournaments.get(t));

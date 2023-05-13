@@ -12,7 +12,7 @@ public class Tournament implements Serializable{
     private int eachStageDays;
     private LocalDate endDate;
     private ArrayList<Team> participants = new ArrayList<>();
-    private int capacity;
+    int capacity;
     //private String participationType;
     private boolean registerationOpen;
     private Sport sport;

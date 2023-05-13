@@ -37,8 +37,8 @@ public class LoginController {
         try {
             String info = authentiacate(name, pass);
             if (info != null) {
-                User user = App.database.getUser(name);
-                if (user == null) {
+                int user = App.getUser(name);
+                if (user != -1) {
                     JSONObject jsonObject = new JSONObject(info);
                     if (jsonObject.getString("type").equals("admin")) {
                         Admin admin = new Admin(name, pass);

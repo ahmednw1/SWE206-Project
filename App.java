@@ -16,6 +16,8 @@ public class App extends Application {
   static ArrayList<User> users = database.getUsers();
   static ArrayList<Tournament> tournaments = database.getTournaments();
   static ArrayList<Team> teams = database.getTeams();
+  static User current ;
+
 
   @Override
   public void start(Stage primaryStage) {
@@ -44,6 +46,17 @@ public class App extends Application {
     users = database.getUsers();
     teams = database.getTeams();
   }
+  public static int getUser(String id){
+    for(int i=0;i<users.size();i++){
+      if(users.get(i).getID().equals(id)){
+        return i;
+      }
+    }
+    return -1;
+  }
+  public static void setCurrent(int i) {
+     current = users.get(i);
+  }
 
   public static ArrayList<Tournament> getTournaments() {
     return tournaments;
@@ -56,5 +69,6 @@ public class App extends Application {
   public static ArrayList<Team> getTeams() {
     return teams;
   }
+
 
 }

@@ -68,20 +68,24 @@ public class eleminationController implements Initializable {
         treeView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> System.out.println(newValue.getValue()));
         int numOfRounds = (int) Math.ceil(tournament.getParticipants().size()/2);
+        int numOfRounds2 = numOfRounds;
+        if(tournament.getParticipants().size() % 2 != 0){
+            numOfRounds2 ++;
+        } 
         
         System.out.println(tournament.getParticipants());
         System.out.println(numOfRounds);
-        TreeItem<String>[] stageNodes = new TreeItem[numOfRounds];
-        for (int i = 0; i < numOfRounds; i++) {
+        TreeItem<String>[] stageNodes = new TreeItem[numOfRounds2];
+        for (int i = 0; i < numOfRounds2; i++) {
             stageNodes[i] = new TreeItem<>("Stage " + (i + 1));
             root.getChildren().add(stageNodes[i]);
         }
 
         TreeItem<String>[] matchNodes = new TreeItem[tournament.getParticipants().size()-1];
         int matchIndex = 0;
-        for (int i = 0; i < numOfRounds; i++) {
+        for (int i = 0; i < numOfRounds2; i++) {
             for (int j = 0; j < Math.pow(numOfRounds, numOfRounds - i - 1); j++) {
-                matchNodes[matchIndex] = new TreeItem<>(matches.get(j).getTeam1() + " vs " + matches.get(j).getTeam2());
+                matchNodes[matchIndex] = new TreeItem<>(matches.get(matchIndex).getTeam1() + " vs " + matches.get(matchIndex).getTeam2());
                 stageNodes[i].getChildren().add(matchNodes[matchIndex]);
                 matchIndex++;
             }

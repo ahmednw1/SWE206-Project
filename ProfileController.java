@@ -41,9 +41,8 @@ public class ProfileController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println(App.database.getCurrentUser());
-        name.setText(App.database.getCurrentUser().getName());
-        if(App.database.getCurrentUser() instanceof Admin){
+        name.setText(App.users.get(App.getCurrentUser()).getName());
+        if(App.users.get(App.getCurrentUser()) instanceof Admin){
             type.setText("Admin");
         }
         else{
@@ -57,13 +56,13 @@ public class ProfileController implements Initializable {
         
 
             ObservableList<TabelProfile> list = FXCollections.observableArrayList();
-            for(int i=0; i<((Student) App.database.getCurrentUser()).getTeams().size();i++ ){
-                list.add(new TabelProfile(((Student) App.database.getCurrentUser()).getTeams().get(i).toString(), ((Student) App.database.getCurrentUser()).getTeams().get(i).getTournament().tString()));
+            for(int i=0; i<((Student) App.users.get(App.getCurrentUser())).getTeams().size();i++ ){
+                list.add(new TabelProfile(((Student) App.users.get(App.getCurrentUser())).getTeams().get(i).toString(), ((Student) App.users.get(App.getCurrentUser())).getTeams().get(i).getTournament().tString()));
             }
             tableView.setItems(list);
                                             
         }
-        email.setText(App.database.getCurrentUser().getEmail());  
+        email.setText(App.users.get(App.getCurrentUser()).getEmail());  
 
         
 
@@ -98,5 +97,4 @@ public class ProfileController implements Initializable {
 
   
     }
-
 

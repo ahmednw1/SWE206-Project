@@ -16,6 +16,7 @@ public class App extends Application {
   static ArrayList<User> users = database.getUsers();
   static ArrayList<Tournament> tournaments = database.getTournaments();
   static ArrayList<Team> teams = database.getTeams();
+  static Integer currentUser;
 
   @Override
   public void start(Stage primaryStage) {
@@ -57,6 +58,13 @@ public class App extends Application {
 
   public static ArrayList<Team> getTeams() {
     return teams;
+  }
+  public static void setCurrentUser(Integer currentUser) {
+    App.currentUser = currentUser;
+  }
+
+  public static Integer getCurrentUser() {
+    return currentUser;
   }
 
 }

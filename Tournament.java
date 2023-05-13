@@ -13,7 +13,7 @@ public class Tournament implements Serializable {
     private LocalDate endDate;
     private ArrayList<Team> participants = new ArrayList<>();
     private ArrayList<Team> flexible = new ArrayList<>();
-    private int capacity;
+    int capacity;
     // private String participationType;
     private boolean registerationOpen;
     private Sport sport;
@@ -44,7 +44,9 @@ public class Tournament implements Serializable {
 
     public void addParticipant(Team team) {
         if (this.participants.size() < this.capacity && this.registerationOpen) {
+            System.out.println("Added to tournament");
             this.participants.add(team);
+            team.setTournament(this);
         }
     }
 
@@ -66,7 +68,7 @@ public class Tournament implements Serializable {
         this.participants.remove(i);
         System.out.println(this.getParticipants());
         // this.participants.remove(team);
-        team.tournamentEnroll(null);
+        team.setTournament(null);
         // team.delete();
         // }
     }

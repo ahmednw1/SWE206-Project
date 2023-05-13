@@ -281,7 +281,7 @@ public class TournamentsController implements Initializable {
                
                 enrollButton.setOnAction(event -> {
                     try {
-                        if (App.database.getCurrentUser() instanceof Student) {
+                        if (App.users.get(App.getCurrentUser()) instanceof Student) {
                             EnrollmentController.select(t);
                             enrollClicked(event);
                         } else {
@@ -302,7 +302,7 @@ public class TournamentsController implements Initializable {
                 generateButton.setPrefSize(140.0, 46.0);
                 generateButton.setOnAction(event -> {
                     try {
-                        if (!(App.database.getCurrentUser() instanceof Admin)) {
+                        if (!(App.users.get(App.getCurrentUser()) instanceof Admin)) {
                             invalidMessage.setText("Sorry, You Must Be an Admin to Generate Matches !");
                         } else if (tournaments.get(t).getParticipants().size() == 0) {
                             invalidMessage.setText("               Sorry, There Are No Participants !");

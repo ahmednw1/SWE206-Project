@@ -123,7 +123,7 @@ public class watchTournamentController implements Initializable {
             ranks.setCellValueFactory(
             new PropertyValueFactory<>("rank"));
         ObservableList<watchprofile> list = FXCollections.observableArrayList();
-        Collections.sort(App.getTournaments().get(tournament).getParticipants());
+        Collections.sort(App.getTournaments().get(tournament).getParticipants(),Collections.reverseOrder());
         for (int i = 0; i < App.getTournaments().get(tournament).getParticipants().size(); i++) {
             list.add(new watchprofile(App.getTournaments().get(tournament).getParticipants().get(i).toString(),
                     (App.getTournaments().get(tournament).getParticipants().get(i).getPoints()), i + 1));

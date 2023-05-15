@@ -19,6 +19,9 @@ import javafx.stage.Stage;
 
 public class TeamsProfileController implements Initializable {
 
+    @FXML
+    private TableColumn<TabelProfile, Integer> pointsColumn;
+
     public static Student user;
 
     @FXML
@@ -52,11 +55,14 @@ public class TeamsProfileController implements Initializable {
 
             Teams.setCellValueFactory(
             new PropertyValueFactory<>("team"));
+
+            pointsColumn.setCellValueFactory(
+                new PropertyValueFactory<>("points"));
         
 
             ObservableList<TabelProfile> list = FXCollections.observableArrayList();
             for(int i=0; i<((Student) user).getTeams().size();i++ ){
-                list.add(new TabelProfile(((Student) user).getTeams().get(i).toString(), ((Student) user).getTeams().get(i).getTournament().tString()));
+                list.add(new TabelProfile(((Student) user).getTeams().get(i).toString(), ((Student) user).getTeams().get(i).getTournament().tString(),((Student) user).getTeams().get(i).getPoints()));
             }
             tableView.setItems(list);
                                             

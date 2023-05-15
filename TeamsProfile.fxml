@@ -33,8 +33,9 @@
       <Label fx:id="email" layoutX="57.0" layoutY="140.0" prefHeight="32.0" prefWidth="250.0" text="Email" />
       <TableView fx:id="tableView" layoutX="25.0" layoutY="215.0" prefHeight="270.0" prefWidth="451.0">
         <columns>
-          <TableColumn fx:id="Tournaments" prefWidth="225.0" text="Tournaments:" />
-          <TableColumn fx:id="Teams" prefWidth="225.0" text="Teams:" />
+          <TableColumn fx:id="Tournaments" prefWidth="175.0" text="Tournaments:" />
+          <TableColumn fx:id="Teams" prefWidth="147.0" text="Teams:" />
+            <TableColumn fx:id="pointsColumn" prefWidth="128.0" text="Points" />
         </columns>
       </TableView>
       <ButtonBar layoutX="10.0" layoutY="540.0" prefHeight="60.0" prefWidth="480.0">

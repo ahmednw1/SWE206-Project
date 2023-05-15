@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 public class ProfileController implements Initializable {
 
     @FXML
-    private TableColumn<?, ?> pointsColumn;
+    private TableColumn<TabelProfile, Integer> pointsColumn;
 
 
     @FXML
@@ -46,6 +46,7 @@ public class ProfileController implements Initializable {
         name.setText(App.users.get(App.getCurrentUser()).getName());
         if(App.users.get(App.getCurrentUser()) instanceof Admin){
             type.setText("Admin");
+            tableView.setVisible(false);
         }
         else{
             type.setText("Student");
@@ -55,13 +56,17 @@ public class ProfileController implements Initializable {
 
             Teams.setCellValueFactory(
             new PropertyValueFactory<>("team"));
+
+            pointsColumn.setCellValueFactory(
+                new PropertyValueFactory<>("points"));
         
 
             ObservableList<TabelProfile> list = FXCollections.observableArrayList();
             for(int i=0; i<((Student) App.users.get(App.getCurrentUser())).getTeams().size();i++ ){
-                list.add(new TabelProfile(((Student) App.users.get(App.getCurrentUser())).getTeams().get(i).toString(), ((Student) App.users.get(App.getCurrentUser())).getTeams().get(i).getTournament().tString()));
+                list.add(new TabelProfile(((Student) App.users.get(App.getCurrentUser())).getTeams().get(i).toString(), ((Student) App.users.get(App.getCurrentUser())).getTeams().get(i).getTournament().tString(), ((Student) App.users.get(App.getCurrentUser())).getTeams().get(i).getPoints()));
             }
             tableView.setItems(list);
+
                                             
         }
         email.setText(App.users.get(App.getCurrentUser()).getEmail());  

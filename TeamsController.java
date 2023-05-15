@@ -49,6 +49,7 @@ public class TeamsController implements Initializable {
     Tournament tournament = App.getTournaments().get(selectedTournament);
         
         ArrayList<Team> teams = tournament.getParticipants();
+        System.out.println(teams.get(0).getMembers());
         for(int i=0; i<teams.size();i++){
             AnchorPane anchorPane = new AnchorPane();
         anchorPane.setStyle("-fx-border-color: #007574; -fx-border-radius:10;");

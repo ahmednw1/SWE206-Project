@@ -155,11 +155,10 @@ public class EnrollmentController implements Initializable {
            
             newTeam.addMember((Student) App.users.get(App.getCurrentUser()));
             ((Student) App.users.get(App.getCurrentUser())).addTeam(newTeam);
-            App.write();
             for (int j = 0; j < App.getTournaments().get(selectedTournament).getTeamNumber() - 1; j++) {
                 newTeam.addMember(team.get(j));
                 team.get(j).addTeam(newTeam);
-                App.write();
+                System.out.println(newTeam.getMembers());
 
             }
             App.getTeams().add(newTeam);

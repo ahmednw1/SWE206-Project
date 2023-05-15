@@ -47,6 +47,6 @@
          </font>
       </Label>
       <TextField fx:id="teamName" layoutX="185.0" layoutY="426.0" prefHeight="29.0" prefWidth="230.0" promptText="Team Name" />
-      <Label fx:id="invalidMessage" layoutX="203.0" layoutY="470.0" />
+      <Label fx:id="invalidMessage" layoutX="130.0" layoutY="470.0" />
    </children>
 </AnchorPane>

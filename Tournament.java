@@ -317,7 +317,7 @@ public class Tournament implements Serializable {
     public boolean isIn(Student st) {
         for (int i = 0; i < participants.size(); i++) {
             for (int j = 0; j < participants.get(i).getMembers().size(); j++) {
-                if (participants.get(i).getMembers().get(j).equals(st)) {
+                if (participants.get(i).getMembers().get(j).getID().equals(st.getID())) {
                     return true;
                 }
             }

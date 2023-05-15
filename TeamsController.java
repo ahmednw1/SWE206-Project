@@ -49,7 +49,6 @@ public class TeamsController implements Initializable {
     Tournament tournament = App.getTournaments().get(selectedTournament);
         
         ArrayList<Team> teams = tournament.getParticipants();
-        System.out.println(teams);
         for(int i=0; i<teams.size();i++){
             AnchorPane anchorPane = new AnchorPane();
         anchorPane.setStyle("-fx-border-color: #007574; -fx-border-radius:10;");
@@ -109,7 +108,7 @@ public class TeamsController implements Initializable {
         // gridPane.setPrefsize (500, 500);
         // Place nodes in the gridPane
 
-        int buttonCount=tournament.getTeamNumber();
+        int buttonCount=tournament.getParticipants().size();
         for (int j = 0; j < buttonCount; j++) {
             RadioButton radioButton = new RadioButton(teams.get(i).getMembers().get(j).getName());
             radioButton.prefHeight(20);

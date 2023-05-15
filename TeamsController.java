@@ -108,7 +108,7 @@ public class TeamsController implements Initializable {
         // gridPane.setPrefsize (500, 500);
         // Place nodes in the gridPane
 
-        int buttonCount=tournament.getParticipants().size();
+        int buttonCount=tournament.getParticipants().get(0).getMembers().size();
         for (int j = 0; j < buttonCount; j++) {
             RadioButton radioButton = new RadioButton(teams.get(i).getMembers().get(j).getName());
             radioButton.prefHeight(20);
@@ -205,5 +205,7 @@ public class TeamsController implements Initializable {
     public static void select(int t) {
         selectedTournament = t;
     }
+
+    
 
 }

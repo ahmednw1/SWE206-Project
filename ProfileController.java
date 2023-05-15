@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 
 public class ProfileController implements Initializable {
 
+    @FXML
+    private TableColumn<?, ?> pointsColumn;
 
 
     @FXML

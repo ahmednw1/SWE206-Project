@@ -2,6 +2,8 @@
 
 A **JavaFX application** for booking football pitch appointments within the university, featuring **user verification and admin management**.
 
+---
+
 ## 🚀 Features
 
 - Book and manage football pitch appointments
@@ -9,8 +11,9 @@ A **JavaFX application** for booking football pitch appointments within the univ
 - Clean, user-friendly JavaFX interface
 - Admin panel for managing bookings
 
+---
+
 ## 🛠️ Tech Stack
 
 - Java
 - JavaFX
-
